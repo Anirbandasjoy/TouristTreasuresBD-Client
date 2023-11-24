@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <RouterProvider router={router} />
         <Toaster
           toastOptions={{
-            position: "bottom",
+            position: "top-center",
             style: {
               background: "#283046",
               color: 'white'

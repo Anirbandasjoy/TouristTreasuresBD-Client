@@ -8,11 +8,12 @@ import uploadImage from '../../api/uploadImage';
 import { AuthContext } from '../../context/AuthProvider';
 import { updateProfile } from 'firebase/auth';
 import toast from 'react-hot-toast';
+import { FcOrgUnit } from 'react-icons/fc';
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(true);
     const [registerError, setRegisterError] = useState("");
-    const { registerUser, logOut, googleLoginUser } = useContext(AuthContext)
+    const { registerUser, logOut, googleLoginUser, loading, setLoading } = useContext(AuthContext)
     const navigate = useNavigate()
 
     const formik = useFormik({
@@ -51,6 +52,7 @@ const Register = () => {
             } catch (error) {
                 console.error("Error during registration:", error);
                 setRegisterError("Error during registration. Please try again.");
+                setLoading(false)
             }
         }
     });
@@ -125,7 +127,7 @@ const Register = () => {
                             </div>
 
                         </div>
-                        <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Register </button>
+                        <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">{loading ? <FcOrgUnit size={20} className='animate-spin mx-auto' /> : "Register"}  </button>
                         <div className="text-sm font-medium text-gray-500 ">
                             Already Register? please <Link to="/login" className="text-blue-700 hover:underline ">Login</Link>
 
