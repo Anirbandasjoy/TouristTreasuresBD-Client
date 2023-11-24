@@ -1,16 +1,20 @@
 
 import { useFormik } from 'formik'
-import { Link, } from 'react-router-dom'
+import { Link, useNavigate, } from 'react-router-dom'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 import * as yup from 'yup';
 
 import Lottie from 'lottie-react';
 import loginAnimation from '../../assets/animation/login.json'
 import { Helmet } from 'react-helmet';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../../context/AuthProvider';
+import toast from 'react-hot-toast';
 const Login = () => {
     const [showPassword, setShowPassword] = useState(true);
     const [loginError, setLoginError] = useState("");
+    const { loginUser, googleLoginUser } = useContext(AuthContext)
+    const navigate = useNavigate()
 
 
     const formik = useFormik({
@@ -25,24 +29,37 @@ const Login = () => {
                 "Password at least 6 char and one uppercase one spacial char"
             ).required()
         }),
-        onSubmit: (values) => {
+        onSubmit: async (values) => {
             setLoginError("")
 
             const { email, password } = values;
 
-            console.log(email, password)
+            try {
+                await loginUser(email, password);
+                toast.success("Login Successful!");
+                navigate("/")
+            } catch (error) {
+                console.error("Error during Login:", error);
+                setLoginError("Error during Login. Please try again.");
+            }
 
 
 
         }
     });
 
+    const handleGoogleLogin = async () => {
+        await googleLoginUser()
+        toast.success("Login Successfully")
+        navigate("/")
+    }
+
 
 
     return (
         <div className='  flex justify-center flex-col lg:flex-row items-center bg-base-300 dark:bg-gray-900 dark:text-white'>
             <Helmet>
-                <title>Login | Tour sport</title>
+                <title>Login | Tour </title>
             </Helmet>
             <div className='flex-1 text-center  '>
                 <div className='w-3/4 mx-auto'>
@@ -96,7 +113,7 @@ const Login = () => {
                         {/* social login start */}
                         <div className='flex flex-col sm:flex-row justify-center items-center '>
 
-                            <button type="button" className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2">
+                            <button onClick={handleGoogleLogin} type="button" className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-xs px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2">
                                 <svg className="w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 19">
                                     <path fillRule="evenodd" d="M8.842 18.083a8.8 8.8 0 0 1-8.65-8.948 8.841 8.841 0 0 1 8.8-8.652h.153a8.464 8.464 0 0 1 5.7 2.257l-2.193 2.038A5.27 5.27 0 0 0 9.09 3.4a5.882 5.882 0 0 0-.2 11.76h.124a5.091 5.091 0 0 0 5.248-4.057L14.3 11H9V8h8.34c.066.543.095 1.09.088 1.636-.086 5.053-3.463 8.449-8.4 8.449l-.186-.002Z" clipRule="evenodd" />
                                 </svg>

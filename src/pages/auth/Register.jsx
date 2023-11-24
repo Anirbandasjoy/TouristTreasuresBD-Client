@@ -3,17 +3,17 @@ import { useFormik } from 'formik'
 import { Link, useNavigate, } from 'react-router-dom'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 import * as yup from 'yup';
+import { Helmet } from 'react-helmet';
+import uploadImage from '../../api/uploadImage';
 import { AuthContext } from '../../context/AuthProvider';
 import { updateProfile } from 'firebase/auth';
 import toast from 'react-hot-toast';
-import { Helmet } from 'react-helmet';
+
 const Register = () => {
     const [showPassword, setShowPassword] = useState(true);
     const [registerError, setRegisterError] = useState("");
-    const navigate = useNavigate();
-
-    const { registerUser, googleLoginUser, logOut } = useContext(AuthContext)
-    const location = localStorage.getItem("location")
+    const { registerUser, logOut, googleLoginUser } = useContext(AuthContext)
+    const navigate = useNavigate()
 
     const formik = useFormik({
         initialValues: {
@@ -24,56 +24,41 @@ const Register = () => {
         },
         validationSchema: yup.object({
             name: yup.string().required(),
-            image: yup.string().required(),
             email: yup.string().email().required(),
+            image: yup.mixed().required("Please select an image file"),
             password: yup.string().matches(
                 /^(?=.*[A-Z])(?=.*[\W_]).{6,}$/,
                 "Password at least 6 char and one uppercase one spacial char"
             ).required()
         }),
 
-        onSubmit: (values) => {
+        onSubmit: async (values) => {
 
             const { email, password, name, image } = values;
             setRegisterError("")
 
-            registerUser(email, password)
-                .then((userCredetial) => {
-                    updateProfile(userCredetial.user, {
-                        displayName: name,
-                        photoURL: image,
-                        location: "location",
-                        shortDescription: "shortDescription",
-                    })
-                        .then(() => {
-                        })
-                        .catch((err) => console.log(err.message))
+            try {
 
-                    toast.success("Your Registation Successfully!")
-                    logOut()
-                        .then(() => {
-                            localStorage.removeItem("location")
-                            navigate("/login")
-                        })
-
-                })
-                .catch((err) => {
-                    setRegisterError("Somthing Rong", err);
-
-                })
-
+                const imageURL = await uploadImage(image);
+                const userCredential = await registerUser(email, password);
+                await updateProfile(userCredential.user, {
+                    displayName: name,
+                    photoURL: imageURL,
+                });
+                toast.success("Your Registration was Successful!");
+                await logOut()
+                navigate("/login")
+            } catch (error) {
+                console.error("Error during registration:", error);
+                setRegisterError("Error during registration. Please try again.");
+            }
         }
     });
 
-    const handleGoogleLogin = () => {
-        googleLoginUser()
-            .then(() => {
-                toast.success("Logged in Successfully!")
-                navigate(location ? location : "/")
-            })
-            .catch((err) => [
-                console.log(err.message)
-            ])
+    const handleGoogleLogin = async () => {
+        await googleLoginUser()
+        toast.success("Login Successfully")
+        navigate("/")
     }
 
 
@@ -105,8 +90,18 @@ const Register = () => {
                         </div>
                         <div>
 
-                            <input type="text" name="image" id="image" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="your image url" onChange={formik.handleChange} value={formik.values.image} />
-                            <span className="text-red-600 text-xs">{formik.touched.image ? formik.errors.image : ""}</span>
+                            <input
+                                type="file"
+                                name="image"
+                                id="image"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                onChange={(e) => {
+                                    formik.setFieldValue("image", e.currentTarget.files[0]);
+                                }}
+                            />
+                            <span className="text-red-600 text-xs">
+                                {formik.touched.image && formik.errors.image}
+                            </span>
                         </div>
                         <div>
 
