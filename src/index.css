@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.react-tabs__tab--selected.tab-style {
+  background-color: red;
+  color: white; /* Optionally change text color for better visibility */
+}
