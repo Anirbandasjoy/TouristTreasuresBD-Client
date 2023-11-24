@@ -49,7 +49,7 @@ const Navbar = () => {
                                 </div>
                             </li>
                             <li className="cursor-pointer">
-                                Home
+                                <Link to="/">Home</Link>
                             </li>
                             <li className="cursor-pointer">
 

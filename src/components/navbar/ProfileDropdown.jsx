@@ -33,7 +33,7 @@ const ProfileDropdown = () => {
                     }
                     <hr />
                     <li className="mt-3">
-                        <Link className="block px-4 py-1 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</Link>
+                        <Link to="/dashboard" className="block px-4 py-1 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</Link>
                     </li>
 
                 </ul>

@@ -1,9 +1,10 @@
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs"
 import { Overview } from "./Overview"
 import TripPackages from "./TripPackages"
+import MeetOutGuide from "./MeetOutGuide"
 const TravelGuide = () => {
     return (
-        <div className="my-20 max-w-4xl mx-auto ">
+        <div className="my-20 max-w-5xl mx-auto ">
             <Tabs className="mx-auto text-center">
                 <TabList className="flex  justify-center lg:gap-5 gap-1
                 ">
@@ -20,7 +21,7 @@ const TravelGuide = () => {
                         <TripPackages />
                     </TabPanel>
                     <TabPanel>
-                        <Overview />
+                        <MeetOutGuide />
                     </TabPanel>
                 </div>
             </Tabs>

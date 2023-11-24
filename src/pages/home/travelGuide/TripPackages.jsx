@@ -1,11 +1,11 @@
+import { Link } from "react-router-dom";
 import usePackage from "../../../hooks/usePackage"
-
-
-
 const TripPackages = () => {
 
-    const { data } = usePackage();
-    console.log(data)
+    const { data, isLoading } = usePackage();
+    if (isLoading) {
+        return <h1>Loading ...</h1>
+    }
     return (
         <div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -19,7 +19,7 @@ const TripPackages = () => {
                             <div className="px-10 pt-3 space-y-7 pb-2">
                                 <h1 className="text-left text-lg lg:text-2xl font-semibold">{pac?.tripTitle}</h1>
                                 <hr />
-                                <button className="py-2 px-4  text-sm text-white -mb-4 bg-[#6ca9f3]">View Package</button>
+                                <button className="py-2 px-4  text-sm text-white -mb-4 bg-[#6ca9f3]"><Link to={`/package-details/${pac?._id}`}>View Package</Link></button>
                             </div>
                         </div>
                     })
