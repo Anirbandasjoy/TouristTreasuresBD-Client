@@ -7,7 +7,9 @@ const MainLayout = () => {
         <div>
             <TopNavbar />
             <Navbar />
-            <Outlet />
+            <div className="px-2 lg:px-0">
+                <Outlet />
+            </div>
         </div>
     )
 }

@@ -2,7 +2,7 @@
 
 export const Overview = () => {
     return (
-        <div className="flex gap-3">
+        <div className="flex gap-3 lg:flex-row flex-col">
             <div className="w-full ">
                 <iframe className="w-full h-56" src="https://www.youtube.com/embed/dQm3XsPYo6A?si=omUpkYLonbi_JsEe" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
             </div>

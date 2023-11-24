@@ -13,21 +13,24 @@ const ProfileDropdown = () => {
     }
     return (
         <div className="">
-
             <div onClick={() => setOpen(!open)} className="relative cursor-pointer inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-200 rounded-full dark:bg-gray-600">
 
-                <img className="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src={user?.photoURL} alt="Bordered avatar" />
+                <img className="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src={user ? user?.photoURL : "https://toppng.com/uploads/preview/black-and-white-stockportable-network-account-icon-11553436383dwuayhjyvo.png"} alt="Bordered avatar" />
 
             </div>
 
             <div id="dropdownNavbar" className={`absolute ${open ? "" : "hidden"} sm:right-4 z-30 sm:top-14 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600`}>
                 <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownLargeButton">
-                    <li>
-                        <Link className="block px-4 py-2  hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{user?.displayName}</Link>
-                    </li>
-                    <li className="mb-2">
-                        <Link className="block px-4 py-2  hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{user?.email}</Link>
-                    </li>
+                    {
+                        user && <>
+                            <li>
+                                <Link className="block px-4 py-2  hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{user?.displayName}</Link>
+                            </li>
+                            <li className="mb-2">
+                                <Link className="block px-4 py-2  hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{user?.email}</Link>
+                            </li>
+                        </>
+                    }
                     <hr />
                     <li className="mt-3">
                         <Link className="block px-4 py-1 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</Link>
