@@ -1,15 +1,23 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 // Components
 import MenuItem from './MenuItem'
 // Icons
 import { GrLogout } from 'react-icons/gr'
-import { FcSettings } from 'react-icons/fc'
+import { MdAccountCircle, MdManageAccounts } from "react-icons/md";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { TbGitPullRequest } from "react-icons/tb";
+import { VscDiffAdded } from "react-icons/vsc";
 import Logo from './Logo'
 import { FaRegBookmark, FaRegHeart } from 'react-icons/fa'
+import { AuthContext } from '../../../context/AuthProvider';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+
 
 const Sidebar = () => {
     const [isActive, setActive] = useState(false)
+    const { logOut } = useContext(AuthContext)
+    const navigate = useNavigate()
 
 
     //   For guest/host menu item toggle button
@@ -19,6 +27,11 @@ const Sidebar = () => {
     // Sidebar Responsive Handler
     const handleToggle = () => {
         setActive(!isActive)
+    }
+    const handleLogOut = async () => {
+        await logOut()
+        toast.success("Logout Successfully")
+        navigate("/")
     }
     return (
         <>
@@ -65,7 +78,22 @@ const Sidebar = () => {
                             <MenuItem
                                 icon={FaRegBookmark}
                                 label='My Bookings'
-                                address='/dashboard'
+                                address='my-bookings'
+                            />
+                            <MenuItem
+                                icon={TbGitPullRequest}
+                                label=' My Assigned Tours'
+                                address='my-assigned-tours'
+                            />
+                            <MenuItem
+                                icon={VscDiffAdded}
+                                label='Add Package'
+                                address='add-package'
+                            />
+                            <MenuItem
+                                icon={MdManageAccounts}
+                                label='Manage Users'
+                                address='manage-users'
                             />
 
                             {/* Menu Items */}
@@ -77,11 +105,11 @@ const Sidebar = () => {
                     <hr />
 
                     <MenuItem
-                        icon={FcSettings}
+                        icon={MdAccountCircle}
                         label='My Profile'
-                        address='/dashboard/profile'
+                        address='profile'
                     />
-                    <button className='flex w-full items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform'>
+                    <button onClick={handleLogOut} className='flex w-full items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform'>
                         <GrLogout className='w-5 h-5' />
 
                         <span className='mx-4 font-medium'>Logout</span>

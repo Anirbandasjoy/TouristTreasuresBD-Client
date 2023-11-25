@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom"
 import Sidebar from "../components/dashboard/sidebar/Sidebar"
 
 const DashboardLayout = () => {
@@ -6,7 +7,7 @@ const DashboardLayout = () => {
             {/* Sidebar Component */}
             <Sidebar />
             <div className='flex-1  md:ml-64'>
-                <div className='p-5'>{/* Outlet for dynamic contents */}</div>
+                <div className='p-5'>{/* Outlet for dynamic contents */} <Outlet /></div>
             </div>
         </div>
     )

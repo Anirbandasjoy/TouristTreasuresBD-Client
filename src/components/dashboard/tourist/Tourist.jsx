@@ -1,0 +1,9 @@
+
+
+const Tourist = () => {
+    return (
+        <div>Tourist</div>
+    )
+}
+
+export default Tourist
