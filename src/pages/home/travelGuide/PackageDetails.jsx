@@ -24,6 +24,7 @@ const PackageDetails = () => {
         </div>
         <div className="mt-4">
             <p className="text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita sed, cum ratione praesentium dolor saepe veritatis deleniti ipsum consequuntur dolorem debitis quis velit molestiae provident sapiente quo placeat! Temporibus, provident.</p>
+            <p className="text-5xl">{data?.tourType}</p>
         </div>
     </div>;
 };

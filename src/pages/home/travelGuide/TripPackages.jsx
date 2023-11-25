@@ -1,8 +1,32 @@
 import { Link } from "react-router-dom";
 import usePackage from "../../../hooks/usePackage"
+import { FaHeartPulse } from "react-icons/fa6";
+import toast from "react-hot-toast";
+import useAxios from "../../../hooks/useAxios";
+import { useContext } from "react";
+import { AuthContext } from "../../../context/AuthProvider";
 const TripPackages = () => {
-
+    const { user } = useContext(AuthContext)
+    const { axiosSecure } = useAxios()
     const { data, isLoading } = usePackage();
+    const handleCreateWishlistData = async (packageData) => {
+        const wishList = {
+            email: user?.email,
+            image: packageData?.image,
+            tourType: packageData?.tourType,
+            tripTitle: packageData?.tripTitle,
+            price: packageData?.price,
+            description: packageData?.description
+        }
+        try {
+            const { data } = await axiosSecure.post("/create-wishListData", wishList)
+            console.log(data)
+        } catch (error) {
+            console.log(error)
+        }
+        toast.success("Added Your Wishlist❤️")
+    }
+
     if (isLoading) {
         return <h1>Loading ...</h1>
     }
@@ -15,6 +39,8 @@ const TripPackages = () => {
                             <div className="border-b-8  border-b-[#4d99f5] relative">
                                 <img src={pac?.image} alt={pac.tourType} />
                                 <p className="bg-[#008000] text-white absolute bottom-0 right-0 p-2 font-bold">${pac?.price}</p>
+                                <FaHeartPulse onClick={() => handleCreateWishlistData(pac)} size={30} className="absolute z-[10] cursor-pointer top-2 right-2 text-gray-900 " />
+                                <div className="pbg w-full h-full absolute top-0">  </div>
                             </div>
                             <div className="px-10 pt-3 space-y-7 pb-2">
                                 <h1 className="text-left text-lg lg:text-2xl font-semibold">{pac?.tripTitle}</h1>

@@ -6,3 +6,6 @@
   background-color: red;
   color: white; /* Optionally change text color for better visibility */
 }
+.pbg {
+  background-color: rgb(0, 0, 0, 0.4);
+}

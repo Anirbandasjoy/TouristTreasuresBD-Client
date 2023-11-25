@@ -1,5 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -9,25 +7,16 @@ import 'swiper/css/scrollbar';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-
 // import required modules
 import { Keyboard, Scrollbar, Navigation, Pagination } from 'swiper/modules';
 import { Link } from "react-router-dom";
-
-
+import useGetRoleUser from '../../../hooks/useGetRoleUser';
 const MeetOutGuide = () => {
-
-    const { data, isLoading } = useQuery({
-        queryKey: ["Guides"],
-        queryFn: async () => {
-            const response = await axios.get("./guide.json");
-            return response.data;
-        },
-    });
+    const { data, isLoading } = useGetRoleUser("Guide")
+    console.log(data)
     if (isLoading) {
         return <h1>Loading...</h1>
     }
-    console.log(data)
     return (
         <div>
             <Swiper
@@ -53,21 +42,18 @@ const MeetOutGuide = () => {
                 className="mySwiper"
             >
 
-
-                {
-                    data.map((guide) => {
-                        return <div key={guide.id} className="p-2 relative">
-                            <SwiperSlide>
-                                <div className="h-[18rem]">
-                                    <img className="h-full w-full" src={guide?.profilePhoto} />
-                                </div>
-                                <div className="pt-4 pb-7">
-                                    <button className="py-2 px-4 z-[10] bg-blue-400 text-white font-bold text-sm"><Link>See Details</Link></button>
-                                </div>
-                            </SwiperSlide>
+                {data?.map((guide) => (
+                    <SwiperSlide key={guide?.email}>
+                        <div className="h-[18rem]">
+                            <img className="h-full w-full" src={guide?.image} alt={guide?.email} />
                         </div>
-                    })
-                }
+                        <div className="pt-6 pb-4">
+                            <Link to={`guide-details/${guide._id}`} className="py-2 px-4 z-[10] bg-blue-400 text-white font-bold text-xs">
+                                See Details
+                            </Link>
+                        </div>
+                    </SwiperSlide>
+                ))}
 
             </Swiper>
 
