@@ -9,10 +9,12 @@ import { AuthContext } from '../../context/AuthProvider';
 import { updateProfile } from 'firebase/auth';
 import toast from 'react-hot-toast';
 import { FcOrgUnit } from 'react-icons/fc';
+import useAxios from '../../hooks/useAxios';
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(true);
     const [registerError, setRegisterError] = useState("");
+    const { axiosSecure } = useAxios()
     const { registerUser, logOut, googleLoginUser, loading, setLoading } = useContext(AuthContext)
     const navigate = useNavigate()
 
@@ -46,6 +48,14 @@ const Register = () => {
                     displayName: name,
                     photoURL: imageURL,
                 });
+                const userInfo = {
+                    name: userCredential?.user?.displayName,
+                    image: userCredential?.user?.photoURL,
+                    email: userCredential?.user.email,
+                    role: "Tourist",
+                };
+                const { data } = await axiosSecure.put(`/user/${userCredential?.user?.email}`, userInfo);
+                console.log(data);
                 toast.success("Your Registration was Successful!");
                 await logOut()
                 navigate("/login")
@@ -58,7 +68,16 @@ const Register = () => {
     });
 
     const handleGoogleLogin = async () => {
-        await googleLoginUser()
+        const userCredential = await googleLoginUser();
+        console.log(userCredential.user)
+        const userInfo = {
+            name: userCredential?.user?.displayName,
+            image: userCredential?.user?.photoURL,
+            email: userCredential?.user.email,
+            role: "Tourist",
+        };
+        const { data } = await axiosSecure.put(`/user/${userCredential?.user?.email}`, userInfo);
+        console.log(data);
         toast.success("Login Successfully")
         navigate("/")
     }

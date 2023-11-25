@@ -11,12 +11,13 @@ import { useContext, useState } from 'react';
 import { AuthContext } from '../../context/AuthProvider';
 import toast from 'react-hot-toast';
 import { FcOrgUnit } from "react-icons/fc";
+import useAxios from '../../hooks/useAxios';
 const Login = () => {
     const [showPassword, setShowPassword] = useState(true);
     const [loginError, setLoginError] = useState("");
+    const { axiosSecure } = useAxios()
     const { loginUser, googleLoginUser, loading, setLoading } = useContext(AuthContext)
     const navigate = useNavigate()
-
 
     const formik = useFormik({
         initialValues: {
@@ -30,11 +31,11 @@ const Login = () => {
                 "Password at least 6 char and one uppercase one spacial char"
             ).required()
         }),
+
+
         onSubmit: async (values) => {
             setLoginError("")
-
             const { email, password } = values;
-
             try {
                 await loginUser(email, password);
                 toast.success("Login Successful!");
@@ -52,7 +53,16 @@ const Login = () => {
     });
 
     const handleGoogleLogin = async () => {
-        await googleLoginUser()
+        const userCredential = await googleLoginUser();
+        console.log(userCredential.user)
+        const userInfo = {
+            name: userCredential?.user?.displayName,
+            image: userCredential?.user?.photoURL,
+            email: userCredential?.user.email,
+            role: "Tourist",
+        };
+        const { data } = await axiosSecure.put(`/user/${userCredential?.user?.email}`, userInfo);
+        console.log(data);
         toast.success("Login Successfully")
         navigate("/")
     }
