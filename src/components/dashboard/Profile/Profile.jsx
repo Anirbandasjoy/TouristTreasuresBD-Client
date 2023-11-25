@@ -1,7 +1,9 @@
 import { useContext } from "react"
 import { AuthContext } from "../../../context/AuthProvider"
+import useGetRole from "../../../hooks/useGetRole"
 const Profile = () => {
     const { user, loading } = useContext(AuthContext)
+    const { role } = useGetRole(user, loading)
     if (loading) {
         return <h1>Loading.....</h1>
     }
@@ -18,7 +20,7 @@ const Profile = () => {
                     <h1><strong>UserId</strong> : {user?.uid}</h1>
                     <h1><strong>Name</strong> : {user?.displayName}</h1>
                     <h1><strong>Email</strong> : {user?.email}</h1>
-                    <h1><strong>Role</strong> : Tourist</h1>
+                    <h1><strong>Role</strong> : {role}</h1>
                 </div>
             </div>
         </div>

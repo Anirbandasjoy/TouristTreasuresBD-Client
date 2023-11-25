@@ -12,19 +12,13 @@ import { FaRegBookmark, FaRegHeart } from 'react-icons/fa'
 import { AuthContext } from '../../../context/AuthProvider';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import useGetRole from '../../../hooks/useGetRole';
 
 
 const Sidebar = () => {
     const [isActive, setActive] = useState(false)
-    const { logOut } = useContext(AuthContext)
+    const { logOut, user, loading } = useContext(AuthContext)
     const navigate = useNavigate()
-
-
-    //   For guest/host menu item toggle button
-    // const toggleHandler = event => {
-    //     setToggle(event.target.checked)
-    // }
-    // Sidebar Responsive Handler
     const handleToggle = () => {
         setActive(!isActive)
     }
@@ -33,9 +27,9 @@ const Sidebar = () => {
         toast.success("Logout Successfully")
         navigate("/")
     }
+    const { role } = useGetRole(user, loading)
     return (
         <>
-            {/* Small Screen Navbar */}
             <div className='bg-gray-100 text-gray-800 flex justify-between md:hidden'>
                 <div>
                     <div className='block cursor-pointer p-4 font-bold'>
@@ -51,7 +45,6 @@ const Sidebar = () => {
 
                 </button>
             </div>
-            {/* Sidebar */}
             <div
                 className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-gray-100 w-64 space-y-6 px-2 py-4 absolute inset-y-0 left-0 transform ${isActive && '-translate-x-full'
                     }  md:translate-x-0  transition duration-200 ease-in-out`}
@@ -63,40 +56,46 @@ const Sidebar = () => {
                         </div>
                     </div>
 
-                    {/* Nav Items */}
                     <div className='flex flex-col justify-between flex-1 mt-6'>
-                        {/* If a user is host */}
-                        {/* <ToggleBtn toggleHandler={toggleHandler} />
-                         */}
+
                         <h1 className='text-lg font-bold text-gray-600 text-center'> TouristTreasuresBD</h1>
                         <nav>
-                            <MenuItem
-                                icon={FaRegHeart}
-                                label='My Wishlist'
-                                address='/dashboard'
-                            />
-                            <MenuItem
-                                icon={FaRegBookmark}
-                                label='My Bookings'
-                                address='my-bookings'
-                            />
-                            <MenuItem
-                                icon={TbGitPullRequest}
-                                label=' My Assigned Tours'
-                                address='my-assigned-tours'
-                            />
-                            <MenuItem
-                                icon={VscDiffAdded}
-                                label='Add Package'
-                                address='add-package'
-                            />
-                            <MenuItem
-                                icon={MdManageAccounts}
-                                label='Manage Users'
-                                address='manage-users'
-                            />
+                            {
+                                role === "Tourist" && <>
+                                    <MenuItem
+                                        icon={FaRegHeart}
+                                        label='My Wishlist'
+                                        address='/dashboard'
+                                    />
+                                    <MenuItem
+                                        icon={FaRegBookmark}
+                                        label='My Bookings'
+                                        address='my-bookings'
+                                    />
+                                </>
+                            }
+                            {
+                                role === "Guide" && <MenuItem
+                                    icon={TbGitPullRequest}
+                                    label=' My Assigned Tours'
+                                    address='my-assigned-tours'
+                                />
+                            }
+                            {
+                                role === "Admin" && <>
+                                    <MenuItem
+                                        icon={VscDiffAdded}
+                                        label='Add Package'
+                                        address='add-package'
+                                    />
+                                    <MenuItem
+                                        icon={MdManageAccounts}
+                                        label='Manage Users'
+                                        address='manage-users'
+                                    />
+                                </>
+                            }
 
-                            {/* Menu Items */}
                         </nav>
                     </div>
                 </div>
