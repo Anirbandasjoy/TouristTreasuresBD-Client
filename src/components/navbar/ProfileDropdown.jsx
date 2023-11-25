@@ -1,6 +1,8 @@
 import { useContext, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { AuthContext } from "../../context/AuthProvider"
+import Swal from "sweetalert2"
+import toast from "react-hot-toast"
 
 
 const ProfileDropdown = () => {
@@ -8,8 +10,20 @@ const ProfileDropdown = () => {
     const { user, logOut } = useContext(AuthContext)
     const navigate = useNavigate()
     const handleLogout = async () => {
-        await logOut()
-        navigate("/login")
+        Swal.fire({
+            title: "Are you sure?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes Logout"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                await logOut();
+                navigate("/login");
+                toast.success("Logout Successfully")
+            }
+        });
     }
     return (
         <div className="">
