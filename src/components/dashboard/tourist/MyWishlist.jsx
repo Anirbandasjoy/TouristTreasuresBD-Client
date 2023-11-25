@@ -8,11 +8,15 @@ import toast from "react-hot-toast";
 const MyWishlist = () => {
     const { axiosSecure } = useAxios()
     const { user } = useContext(AuthContext)
-    const { wishlistData } = useGetWishlistData(user?.email);
+    const { wishlistData, refetch } = useGetWishlistData(user?.email);
     const handleDelete = async (id) => {
+
         const { data } = await axiosSecure.delete(`delete-wishlistData/${id}`)
         console.log(data);
-        toast.success("Deleted Successfully")
+        if (data.deletedCount > 0) {
+            refetch()
+            toast.success("Deleted Successfully")
+        }
     }
     console.log(wishlistData)
     return (
