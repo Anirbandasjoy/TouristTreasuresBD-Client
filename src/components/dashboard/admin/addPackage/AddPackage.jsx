@@ -1,5 +1,10 @@
+import toast from "react-hot-toast";
+import useAxios from "../../../../hooks/useAxios";
+import uploadImage from "../../../../api/uploadImage";
+
 const AddPackage = () => {
-    const handleSubmit = (e) => {
+    const { axiosSecure } = useAxios()
+    const handleSubmit = async (e) => {
         e.preventDefault()
         const form = e.target;
         const tripTitle = form.tripTitle.value;
@@ -7,7 +12,18 @@ const AddPackage = () => {
         const tourType = form.tourType.value;
         const description = form.description.value;
         const image = form.image.files[0];
-        console.log({ tripTitle, price, tourType, description, image });
+
+        try {
+            const imageURL = await uploadImage(image);
+            const packageData = { tripTitle, price, tourType, description, image: imageURL }
+            const { data } = await axiosSecure.post("/package", packageData)
+            console.log(data)
+            if (data.status === 201) {
+                toast.success("Package Added Successfully")
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
     return (
         <div>

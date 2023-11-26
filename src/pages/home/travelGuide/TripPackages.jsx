@@ -44,7 +44,7 @@ const TripPackages = () => {
                     data.map((pac) => {
                         return <div key={pac._id} className="shadow-lg">
                             <div className="border-b-8  border-b-[#4d99f5] relative">
-                                <img src={pac?.image} alt={pac.tourType} />
+                                <img className="h-[15rem]" src={pac?.image} alt={pac.tourType} />
                                 <p className="bg-[#008000] text-white absolute bottom-0 right-0 p-2 font-bold">${pac?.price}</p>
                                 {
                                     role === "Tourist" && <FaHeartPulse onClick={() => handleCreateWishlistData(pac)} size={30} className="absolute z-[10] cursor-pointer top-2 right-2 text-gray-900 " />
