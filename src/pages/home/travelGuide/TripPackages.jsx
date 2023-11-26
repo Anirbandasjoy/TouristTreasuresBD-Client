@@ -1,12 +1,15 @@
 import { Link } from "react-router-dom";
 import usePackage from "../../../hooks/usePackage"
 import { FaHeartPulse } from "react-icons/fa6";
+import { CgClose } from "react-icons/cg";
 import toast from "react-hot-toast";
 import useAxios from "../../../hooks/useAxios";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthProvider";
+import useGetRole from "../../../hooks/useGetRole";
 const TripPackages = () => {
-    const { user } = useContext(AuthContext)
+    const { user, loading } = useContext(AuthContext)
+    const { role } = useGetRole(user, loading)
     const { axiosSecure } = useAxios()
     const { data, isLoading } = usePackage();
     const handleCreateWishlistData = async (packageData) => {
@@ -27,6 +30,10 @@ const TripPackages = () => {
         toast.success("Added Your Wishlist❤️")
     }
 
+    const handleDelete = () => {
+        toast.success("Deleted Successfully")
+    }
+
     if (isLoading) {
         return <h1>Loading ...</h1>
     }
@@ -39,7 +46,12 @@ const TripPackages = () => {
                             <div className="border-b-8  border-b-[#4d99f5] relative">
                                 <img src={pac?.image} alt={pac.tourType} />
                                 <p className="bg-[#008000] text-white absolute bottom-0 right-0 p-2 font-bold">${pac?.price}</p>
-                                <FaHeartPulse onClick={() => handleCreateWishlistData(pac)} size={30} className="absolute z-[10] cursor-pointer top-2 right-2 text-gray-900 " />
+                                {
+                                    role === "Tourist" && <FaHeartPulse onClick={() => handleCreateWishlistData(pac)} size={30} className="absolute z-[10] cursor-pointer top-2 right-2 text-gray-900 " />
+                                }
+                                {
+                                    role === "Admin" && <CgClose onClick={() => handleDelete(pac?._id)} size={30} className="absolute z-[10] cursor-pointer top-2 right-2 bg-yellow-50 text-gray-900 " />
+                                }
                                 <div className="pbg w-full h-full absolute top-0">  </div>
                             </div>
                             <div className="px-10 pt-3 space-y-7 pb-2">
