@@ -14,12 +14,12 @@ const GuideDetails = () => {
                     <div className="space-y-4">
                         <img className="w-28 h-28 rounded-full mx-auto" src={singleUser?.image} alt="user" />
                         <div className="flex gap-5  justify-center">
-                            <Link to={singleUser?.contactInfo.facebook}><FaFacebook size={25} className="text-blue-400 cursor-pointer" /></Link>
-                            <Link to={singleUser?.contactInfo.instagram}>
+                            <Link to={singleUser?.contactInfo?.facebook}><FaFacebook size={25} className="text-blue-400 cursor-pointer" /></Link>
+                            <Link to={singleUser?.contactInfo?.instagram}>
 
                                 <BsInstagram size={25} className="text-[#684ac0] cursor-pointer" />
                             </Link>
-                            <Link to={singleUser?.contactInfo.linkedin}>
+                            <Link to={singleUser?.contactInfo?.linkedin}>
                                 <FaLinkedin size={25} className="text-blue-400 cursor-pointer" />
                             </Link>
 

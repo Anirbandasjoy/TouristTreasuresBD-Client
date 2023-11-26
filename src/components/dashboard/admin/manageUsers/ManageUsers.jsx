@@ -1,20 +1,82 @@
 
+import toast from "react-hot-toast";
 import useGetAllusers from "../../../../hooks/useGetAllusers"
 
 import { RiDeleteBack2Line, RiDeleteBin6Line } from "react-icons/ri";
+import Swal from "sweetalert2";
+import useAxios from "../../../../hooks/useAxios";
+
 const ManageUsers = () => {
-    const { allUsers, isLoading } = useGetAllusers()
+    const { axiosSecure } = useAxios()
+    const { allUsers, isLoading, refetch } = useGetAllusers()
     console.log(allUsers)
+
+    const handleCreateGuide = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const { data } = await axiosSecure.patch(`/update-role/${id}?role=Guide`);
+                if (data.code === 200) {
+                    console.log(data)
+                    refetch()
+                    toast.success("Created Guide")
+                }
+
+            }
+        });
+    }
+
+    const handleCreateAdmin = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const { data } = await axiosSecure.patch(`/update-role/${id}?role=Admin`);
+                if (data.code === 200) {
+                    console.log(data)
+                    refetch()
+                    toast.success("Created Admin")
+                }
+
+            }
+        });
+
+    }
+
+    const handleDeleteUser = () => {
+        Swal.fire({
+            title: "Are you sure?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                toast.success("Deleted Successfully")
+            }
+        });
+    }
+
     if (isLoading) {
         return <h1>Loading....</h1>
     }
     return (
         <div>
-
-
-            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <div className="relative h-[32rem] overflow-x-auto shadow-md sm:rounded-lg">
                 <div className="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900">
-                    <div>
+                    {/* <div>
                         <button id="dropdownActionButton" data-dropdown-toggle="dropdownAction" className="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
                             <span className="sr-only">Action button</span>
                             Action
@@ -39,7 +101,7 @@ const ManageUsers = () => {
                                 <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete User</a>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <label htmlFor="table-search" className="sr-only">Search</label>
                     <div className="relative">
                         <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -50,7 +112,7 @@ const ManageUsers = () => {
                         <input type="text" id="table-search-users" className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for users" />
                     </div>
                 </div>
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <table className="w-full  text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" className="p-4">
@@ -76,7 +138,9 @@ const ManageUsers = () => {
                                 return <tr key={user._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                     <td className="w-4 p-4">
                                         <div className="flex items-center">
-                                            <RiDeleteBack2Line size={20} className="cursor-pointer" />
+                                            {
+                                                user?.role === "Admin" ? "" : <RiDeleteBack2Line onClick={handleDeleteUser} size={20} className="cursor-pointer" />
+                                            }
                                         </div>
                                     </td>
                                     <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
@@ -88,12 +152,16 @@ const ManageUsers = () => {
                                     </th>
                                     <td className="px-6 py-4">
                                         <div className="flex items-center">
-                                            <div className={`h-2.5 w-2.5 rounded-full ${user?.role === "Guide" ? "bg-green-500" : "bg-yellow-500"} me-2`}></div> {user?.role}
+                                            <div className={`h-2.5 w-2.5 rounded-full ${user?.role === "Guide" ? "bg-yellow-400" : user?.role === "Admin" ? "bg-blue-400" : "bg-red-500"} me-2`}></div> {user?.role}
                                         </div>
                                     </td>
-                                    <td className="px-6 py-4 text-center">
-                                        <button className="bg-yellow-400 text-black px-4 py-3 text-xs ">Make Tour Guide</button>
-                                        <button className="bg-blue-400 text-gray-200 px-4 py-3 text-xs ">Make Admin</button>
+                                    <td className="px-6 lg:py-4  text-center">
+                                        {
+                                            user?.role === "Guide" ? <button disabled className="bg-yellow-200 cursor-not-allowed text-black lg:px-3 lg:py-2 text-xs w-14 lg:w-20 px-2 py-1">Guide</button> : <button onClick={() => handleCreateGuide(user?._id)} className="bg-yellow-400 text-black lg:px-3 lg:py-2 text-xs w-14 lg:w-20 px-2 py-1">Guide</button>
+                                        }
+                                        {
+                                            user?.role === "Admin" ? <button disabled onClick={handleCreateAdmin} className="bg-blue-200 text-black cursor-not-allowed lg:px-3 lg:py-2 text-xs w-14 lg:w-20 px-2 py-1">Admin</button> : <button onClick={() => handleCreateAdmin(user._id)} className="bg-blue-400 text-gray-200 lg:px-3 lg:py-2 text-xs w-14 lg:w-20 px-2 py-1">Admin</button>
+                                        }
                                     </td>
                                 </tr>
 
@@ -103,6 +171,8 @@ const ManageUsers = () => {
                     </tbody>
                 </table>
             </div>
+
+
 
         </div>
     )

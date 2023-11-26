@@ -4,7 +4,7 @@ import useAxios from "./useAxios"
 
 const useGetAllusers = () => {
     const { axiosSecure } = useAxios()
-    const { data: allUsers, isLoading } = useQuery({
+    const { data: allUsers, isLoading, refetch } = useQuery({
         queryKey: ["all-users-data"],
         queryFn: async () => {
             const { data } = await axiosSecure.get("/users")
@@ -12,7 +12,7 @@ const useGetAllusers = () => {
         }
     })
 
-    return { allUsers, isLoading }
+    return { allUsers, isLoading, refetch, }
 }
 
 export default useGetAllusers

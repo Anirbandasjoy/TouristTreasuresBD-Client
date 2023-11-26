@@ -14,6 +14,7 @@ import MyAssignedTours from "../components/dashboard/guide/MyAssignedTours/MyAss
 import ManageUsers from "../components/dashboard/admin/manageUsers/ManageUsers";
 import GuideDetails from "../pages/home/travelGuide/GuideDetails";
 import Allpackage from "../pages/home/home/allpackage/Allpackage";
+import TourTypePackage from "../pages/home/tourType/tourTypePackage";
 
 export const router = createBrowserRouter([
     {
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
             {
                 path: "all-packages",
                 element: <Allpackage />
+            },
+            {
+                path: "tourType-data/:type",
+                element: <TourTypePackage />
             }
         ]
     },
