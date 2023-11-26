@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import useGetRoleUser from '../../../hooks/useGetRoleUser';
 const MeetOutGuide = () => {
     const { data, isLoading } = useGetRoleUser("Guide")
-    console.log(data)
+
     if (isLoading) {
         return <h1>Loading...</h1>
     }

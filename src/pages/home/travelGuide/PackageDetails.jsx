@@ -6,6 +6,7 @@ import { AuthContext } from "../../../context/AuthProvider";
 import useGetRoleUser from "../../../hooks/useGetRoleUser";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import toast from "react-hot-toast";
 
 const PackageDetails = () => {
     const { data: guide } = useGetRoleUser("Guide")
@@ -22,7 +23,7 @@ const PackageDetails = () => {
         },
     });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         const form = e.target;
         const touristName = form.touristName.value;
@@ -30,9 +31,19 @@ const PackageDetails = () => {
         const touristImage = form.touristImage.value;
         const price = form.price.value;
         const guideEmail = form.guideEmail.value;
-        const bookingInfo = { touristName, touristEmail, touristImage, price, guideEmail, date: startDate }
+        const tripTitle = data?.tripTitle
+        const tourImage = data?.image;
+        const tourType = data?.tourType;
+        const bookingInfo = { touristName, touristEmail, touristImage, price, guideEmail, date: startDate, tripTitle, tourImage, tourType }
         console.log(bookingInfo)
-
+        try {
+            const { data } = await axiosSecure.post("/create-booking", bookingInfo)
+            toast.success("Booking Successfully")
+            console.log(data)
+        } catch (error) {
+            console.log(error)
+        }
+        form.reset()
     }
 
 
@@ -40,7 +51,7 @@ const PackageDetails = () => {
         return <h1>Loading.....</h1>
     }
 
-    return <div className="max-w-3xl mx-auto mt-10 ">
+    return <div className="max-w-3xl mx-auto mt-10 pb-40">
         <div>
             <img className="mx-auto w-full" src={data?.image} alt={data?.tripTitle} />
             <div className="mt-2 flex items-end gap-3">
@@ -52,7 +63,7 @@ const PackageDetails = () => {
         <div className="mt-4">
             <p className="text-justify">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto asperiores corrupti inventore sint. Molestiae reprehenderit impedit deserunt quasi at voluptatum atque accusantium alias, nihil nostrum eaque, qui fugiat ipsa, aliquam iure dolore. Repellendus, quos quas? Non recusandae dolor quod in.</p>
         </div>
-        <button onClick={() => setOpen(true)} className="w-full  text-gray-600 hover:bg-blue-500 hover:text-white duration-500 px-4 py-2 mt-4 cursor-pointer bg-transparent border-2 border-blue-500">Book Now</button>
+        <button onClick={() => setOpen(true)} className="w-full   text-gray-600 hover:bg-blue-500 hover:text-white duration-500 px-4 py-2 mt-4 cursor-pointer bg-transparent border-2 border-blue-500">Book Now</button>
 
         {/* modal code start */}
         <div>
@@ -222,6 +233,7 @@ const PackageDetails = () => {
                                 {/* ... other form fields ... */}
                             </div>
                             <button
+                                onClick={() => setOpen(false)}
                                 type="submit"
                                 className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             >

@@ -9,8 +9,6 @@ import useAxios from "../../../../hooks/useAxios";
 const ManageUsers = () => {
     const { axiosSecure } = useAxios()
     const { allUsers, isLoading, refetch } = useGetAllusers()
-    console.log(allUsers)
-
     const handleCreateGuide = (id) => {
         Swal.fire({
             title: "Are you sure?",

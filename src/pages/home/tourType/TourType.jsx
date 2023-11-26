@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { toureTypeData } from "./toureTypeData"
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -8,9 +7,7 @@ import 'swiper/css/pagination';
 import { Keyboard, Scrollbar, Navigation, Pagination } from 'swiper/modules';
 import { Link } from "react-router-dom";
 const TourType = () => {
-    const [data, setData] = useState(toureTypeData)
-    console.log(data)
-    console.log(setData)
+    const data = toureTypeData
     return (
         <div className="max-w-5xl my-14 mt-40 mx-auto">
             <Swiper
@@ -37,7 +34,7 @@ const TourType = () => {
             >
 
                 {data?.map((type) => (
-                    <SwiperSlide key={type?.email}>
+                    <SwiperSlide key={type?.id}>
                         <div className="h-[14rem] text-center">
                             <Link to={`/tourType-data/${type?.value}`} className="text-9xl">{type?.icon}</Link>
                             <h1 className="text-sm mt-6 font-medium">{type?.name}</h1>
