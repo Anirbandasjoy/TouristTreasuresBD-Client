@@ -13,6 +13,7 @@ import AddPackage from "../components/dashboard/admin/addPackage/AddPackage";
 import MyAssignedTours from "../components/dashboard/guide/MyAssignedTours/MyAssignedTours";
 import ManageUsers from "../components/dashboard/admin/manageUsers/ManageUsers";
 import GuideDetails from "../pages/home/travelGuide/GuideDetails";
+import Allpackage from "../pages/home/home/allpackage/Allpackage";
 
 export const router = createBrowserRouter([
     {
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
             {
                 path: "guide-details/:id",
                 element: <GuideDetails />
+            },
+            {
+                path: "all-packages",
+                element: <Allpackage />
             }
         ]
     },

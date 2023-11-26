@@ -4,7 +4,7 @@ import useAxios from "./useAxios";
 const usePackage = () => {
     const { axiosSecure } = useAxios();
 
-    const { data, isLoading, isError } = useQuery({
+    const { data, isLoading, isError, refetch } = useQuery({
         queryKey: ["packages"],
         queryFn: async () => {
 
@@ -14,7 +14,7 @@ const usePackage = () => {
         },
     });
 
-    return { data, isLoading, isError };
+    return { data, isLoading, isError, refetch };
 };
 
 export default usePackage;
