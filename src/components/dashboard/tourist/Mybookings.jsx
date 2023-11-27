@@ -4,7 +4,6 @@ import { AuthContext } from "../../../context/AuthProvider";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import useAxios from "../../../hooks/useAxios";
-
 const Mybookings = () => {
     const { user } = useContext(AuthContext);
     const { axiosSecure } = useAxios()
@@ -74,15 +73,18 @@ const Mybookings = () => {
                                 {book?.date}
                             </td>
                             <td className="px-6 py-4">
-                                {book?.status}
+
+                                ${book?.price}
                             </td>
                             <td className="px-6 py-4">
-                                {book?.price}
+                                {book?.status}
                             </td>
                             <td className="px-6 py-4 space-y-2 text-right space-x-2">
                                 <button className="w-16 text-xs font-medium bg-blue-500 text-white px-2 py-1">Pay</button>
-                                <button onClick={() => handleDelete(book?._id)} className="w-16 text-xs font-medium bg-blue-500 text-white px-2 py-1">Cancel</button>
-                                <button className="w-16 text-xs font-medium bg-blue-500 text-white px-2 py-1">Apply</button>
+                                {
+                                    book?.status === "In-Review" ? <button onClick={() => handleDelete(book?._id)} className="w-16 text-xs font-medium bg-blue-500 text-white px-2 py-1">Cancel</button> : <button disabled className="w-16 text-xs cursor-not-allowed font-medium bg-blue-200 text-gray-700 px-2 py-1">Cancel</button>
+                                }
+                                <button disabled className="w-16 cursor-not-allowed text-xs font-medium bg-blue-200 text-gray-700 px-2 py-1">Apply</button>
                             </td>
                         </tr>
                     ))}
