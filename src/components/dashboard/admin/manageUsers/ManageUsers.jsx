@@ -52,7 +52,7 @@ const ManageUsers = () => {
 
     }
 
-    const handleDeleteUser = () => {
+    const handleDeleteUser = (id) => {
         Swal.fire({
             title: "Are you sure?",
             icon: "warning",
@@ -62,7 +62,14 @@ const ManageUsers = () => {
             confirmButtonText: "Yes"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                toast.success("Deleted Successfully")
+                try {
+                    const { data } = await axiosSecure.delete(`/delete-user/${id}`)
+                    refetch()
+                    console.log(data)
+                    toast.success("Deleted Successfully")
+                } catch (error) {
+                    console.log(error)
+                }
             }
         });
     }
@@ -137,7 +144,7 @@ const ManageUsers = () => {
                                     <td className="w-4 p-4">
                                         <div className="flex items-center">
                                             {
-                                                user?.role === "Admin" ? "" : <RiDeleteBack2Line onClick={handleDeleteUser} size={20} className="cursor-pointer" />
+                                                user?.role === "Admin" ? "" : <RiDeleteBack2Line onClick={() => handleDeleteUser(user._id)} size={20} className="cursor-pointer" />
                                             }
                                         </div>
                                     </td>
