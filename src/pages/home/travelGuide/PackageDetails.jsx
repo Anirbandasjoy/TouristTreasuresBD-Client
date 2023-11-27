@@ -34,7 +34,8 @@ const PackageDetails = () => {
         const tripTitle = data?.tripTitle
         const tourImage = data?.image;
         const tourType = data?.tourType;
-        const bookingInfo = { touristName, touristEmail, touristImage, price, guideEmail, date: startDate, tripTitle, tourImage, tourType }
+        const status = "In-Review"
+        const bookingInfo = { touristName, touristEmail, touristImage, price, guideEmail, status, date: startDate, tripTitle, tourImage, tourType }
         console.log(bookingInfo)
         try {
             const { data } = await axiosSecure.post("/create-booking", bookingInfo)

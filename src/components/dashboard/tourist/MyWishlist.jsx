@@ -19,15 +19,18 @@ const MyWishlist = () => {
         }
     }
     console.log(wishlistData)
+    if (!wishlistData || wishlistData.length === 0) {
+        return <h1 className="text-3xl flex h-[calc(100vh-100px)] justify-center items-center">Not Avilable</h1>
+    }
     return (
         <div>
-            <h1 className="text-xl lg:text-2xl mb-8 font-bold text-blue-400">All Packages</h1>
+            <h1 className="text-xl lg:text-2xl mb-8 font-bold text-blue-400">My WishList</h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 overflow-auto  h-[calc(100vh-200px)]">
                 {
                     wishlistData?.map((pac) => {
-                        return <div key={pac._id} className="shadow-lg">
+                        return <div key={pac._id} className="shadow-lg h-[16rem]">
                             <div className="border-b-8  border-b-[#4d99f5] relative">
-                                <img src={pac?.image} alt={pac.tourType} />
+                                <img className="h-[10rem]" src={pac?.image} alt={pac.tourType} />
                                 <p className="bg-[#008000] text-white absolute bottom-0 right-0 p-2 font-bold">${pac?.price}</p>
                                 <IoMdClose onClick={() => handleDelete(pac?._id)} size={30} className="absolute bg-white p-1 z-[10] cursor-pointer top-2 right-2 text-gray-900 " />
                                 <div className="pbg w-full h-full absolute top-0">  </div>

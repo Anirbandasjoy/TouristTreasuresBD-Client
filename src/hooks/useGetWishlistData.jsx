@@ -8,7 +8,7 @@ const useGetWishlistData = (email) => {
         queryKey: ['get-single-user-data', email],
         queryFn: async () => {
             try {
-                const response = await axiosSecure.get(`get-wishlistData/${email}`);
+                const response = await axiosSecure.get(`/get-wishlistData/${email}`);
                 return response.data;
             } catch (error) {
                 throw new Error("Error fetching role-relevant user data");
