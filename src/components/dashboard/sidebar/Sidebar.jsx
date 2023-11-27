@@ -14,10 +14,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import useGetRole from '../../../hooks/useGetRole';
 import Swal from 'sweetalert2';
 import toast from 'react-hot-toast';
+import useAxios from '../../../hooks/useAxios';
 
 
 const Sidebar = () => {
     const [isActive, setActive] = useState(false)
+    const { axiosSecure } = useAxios()
     const { logOut, user, loading } = useContext(AuthContext)
     const navigate = useNavigate()
     const handleToggle = () => {
@@ -34,6 +36,8 @@ const Sidebar = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 await logOut();
+                const { data } = await axiosSecure.get("/logOut")
+                console.log(data)
                 navigate("/login");
                 toast.success("Logout Successfully")
             }
@@ -73,7 +77,6 @@ const Sidebar = () => {
                             <div className='hidden md:flex'>
                                 <Logo />
                             </div>
-
                             <Link to="/" className='text-lg font-bold text-gray-600 text-center'> TouristTreasuresBD</Link>
                         </div>
                     </div>

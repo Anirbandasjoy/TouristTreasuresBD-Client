@@ -38,6 +38,8 @@ const Login = () => {
             const { email, password } = values;
             try {
                 await loginUser(email, password);
+                const { data } = await axiosSecure.post("/jwt", { email: email })
+                console.log(data)
                 toast.success("Login Successful!");
                 navigate("/")
             } catch (error) {

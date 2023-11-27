@@ -3,10 +3,12 @@ import { Link, useNavigate } from "react-router-dom"
 import { AuthContext } from "../../context/AuthProvider"
 import Swal from "sweetalert2"
 import toast from "react-hot-toast"
+import useAxios from "../../hooks/useAxios"
 
 
 const ProfileDropdown = () => {
     const [open, setOpen] = useState(false)
+    const { axiosSecure } = useAxios()
     const { user, logOut } = useContext(AuthContext)
     const navigate = useNavigate()
     const handleLogout = async () => {
@@ -20,6 +22,8 @@ const ProfileDropdown = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 await logOut();
+                const { data } = await axiosSecure.get("/logOut")
+                console.log(data)
                 navigate("/login");
                 toast.success("Logout Successfully")
             }
