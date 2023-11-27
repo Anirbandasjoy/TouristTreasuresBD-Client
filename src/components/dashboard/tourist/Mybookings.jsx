@@ -29,6 +29,9 @@ const Mybookings = () => {
             }
         });
     }
+    const handlePaymentSystem = () => {
+        toast.success("Payment Successfully")
+    }
     if (isLoading) {
         return <h1>Loading...</h1>;
     }
@@ -80,7 +83,9 @@ const Mybookings = () => {
                                 {book?.status}
                             </td>
                             <td className="px-6 py-4 space-y-2 text-right space-x-2">
-                                <button className="w-16 text-xs font-medium bg-blue-500 text-white px-2 py-1">Pay</button>
+                                {
+                                    book?.status === "Accepted" ? <button onClick={handlePaymentSystem} className="w-16 text-xs font-medium bg-blue-500 text-white px-2 py-1">Pay</button> : <button disabled className="w-16 text-xs font-medium bg-blue-200 text-black  px-2 py-1 cursor-not-allowed">Pay</button>
+                                }
                                 {
                                     book?.status === "In-Review" ? <button onClick={() => handleDelete(book?._id)} className="w-16 text-xs font-medium bg-blue-500 text-white px-2 py-1">Cancel</button> : <button disabled className="w-16 text-xs cursor-not-allowed font-medium bg-blue-200 text-gray-700 px-2 py-1">Cancel</button>
                                 }
