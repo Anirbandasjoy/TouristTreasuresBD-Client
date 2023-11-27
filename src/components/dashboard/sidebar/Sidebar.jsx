@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
 // Components
-import MenuItem from './MenuItem'
+import SideBarItem from './SideBarItem'
 // Icons
 import { GrLogout } from 'react-icons/gr'
 import { MdAccountCircle, MdManageAccounts } from "react-icons/md";
@@ -10,7 +10,7 @@ import { VscDiffAdded } from "react-icons/vsc";
 import Logo from './Logo'
 import { FaRegBookmark, FaRegHeart } from 'react-icons/fa'
 import { AuthContext } from '../../../context/AuthProvider';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useGetRole from '../../../hooks/useGetRole';
 import Swal from 'sweetalert2';
 import toast from 'react-hot-toast';
@@ -46,11 +46,12 @@ const Sidebar = () => {
     const { role } = useGetRole(user, loading)
     return (
         <>
-            <div className='bg-gray-100 text-gray-800 flex justify-between md:hidden'>
+            <div className='bg-blue-50 text-gray-800 flex justify-between md:hidden'>
                 <div>
                     <div className='block cursor-pointer p-4 font-bold'>
                         <Logo />
                     </div>
+
                 </div>
 
                 <button
@@ -62,28 +63,33 @@ const Sidebar = () => {
                 </button>
             </div>
             <div
-                className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-gray-100 w-64 space-y-6 px-2 py-4 absolute inset-y-0 left-0 transform ${isActive && '-translate-x-full'
+                className={`z-10 md:fixed flex flex-col justify-between overflow-x-hidden bg-blue-50 w-64 space-y-6 px-2 py-4 absolute inset-y-0 left-0 transform ${isActive && '-translate-x-full'
                     }  md:translate-x-0  transition duration-200 ease-in-out`}
             >
                 <div>
                     <div>
-                        <div className='w-full hidden md:flex px-4 py-2 shadow-md rounded-lg text-gray-800 justify-center items-center bg-blue-50 mx-auto'>
-                            <Logo />
+                        <div className='w-full md:flex  px-4 py-2 shadow-md rounded-lg text-gray-800  gap-2 justify-center items-center bg-blue-50 mx-auto'>
+
+                            <div className='hidden md:flex'>
+                                <Logo />
+                            </div>
+
+                            <Link to="/" className='text-lg font-bold text-gray-600 text-center'> TouristTreasuresBD</Link>
                         </div>
                     </div>
 
                     <div className='flex flex-col justify-between flex-1 mt-6'>
 
-                        <h1 className='text-lg font-bold text-gray-600 text-center'> TouristTreasuresBD</h1>
+
                         <nav>
                             {
                                 role === "Tourist" && <>
-                                    <MenuItem
+                                    <SideBarItem
                                         icon={FaRegHeart}
                                         label='My Wishlist'
-                                        address='/dashboard'
+                                        address='wishlist'
                                     />
-                                    <MenuItem
+                                    <SideBarItem
                                         icon={FaRegBookmark}
                                         label='My Bookings'
                                         address='my-bookings'
@@ -91,7 +97,7 @@ const Sidebar = () => {
                                 </>
                             }
                             {
-                                role === "Guide" && <MenuItem
+                                role === "Guide" && <SideBarItem
                                     icon={TbGitPullRequest}
                                     label=' My Assigned Tours'
                                     address='my-assigned-tours'
@@ -99,12 +105,12 @@ const Sidebar = () => {
                             }
                             {
                                 role === "Admin" && <>
-                                    <MenuItem
+                                    <SideBarItem
                                         icon={VscDiffAdded}
                                         label='Add Package'
                                         address='add-package'
                                     />
-                                    <MenuItem
+                                    <SideBarItem
                                         icon={MdManageAccounts}
                                         label='Manage Users'
                                         address='manage-users'
@@ -119,10 +125,10 @@ const Sidebar = () => {
                 <div>
                     <hr />
 
-                    <MenuItem
+                    <SideBarItem
                         icon={MdAccountCircle}
                         label='My Profile'
-                        address='profile'
+                        address='/dashboard'
                     />
                     <button onClick={handleLogOut} className='flex w-full items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform'>
                         <GrLogout className='w-5 h-5' />

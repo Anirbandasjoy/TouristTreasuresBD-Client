@@ -7,12 +7,14 @@ import useGetRoleUser from "../../../hooks/useGetRoleUser";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
+import useGetRole from "../../../hooks/useGetRole";
 
 const PackageDetails = () => {
     const { data: guide } = useGetRoleUser("Guide")
     const [startDate, setStartDate] = useState(new Date());
     const { axiosSecure } = useAxios();
-    const { user } = useContext(AuthContext)
+    const { user, loading } = useContext(AuthContext)
+    const { role } = useGetRole(user, loading)
     const { id } = useParams();
     const [open, setOpen] = useState(false)
     const { data, isLoading } = useQuery({
@@ -64,7 +66,9 @@ const PackageDetails = () => {
         <div className="mt-4">
             <p className="text-justify">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto asperiores corrupti inventore sint. Molestiae reprehenderit impedit deserunt quasi at voluptatum atque accusantium alias, nihil nostrum eaque, qui fugiat ipsa, aliquam iure dolore. Repellendus, quos quas? Non recusandae dolor quod in.</p>
         </div>
-        <button onClick={() => setOpen(true)} className="w-full   text-gray-600 hover:bg-blue-500 hover:text-white duration-500 px-4 py-2 mt-4 cursor-pointer bg-transparent border-2 border-blue-500">Book Now</button>
+        {
+            role === "Tourist" && <button onClick={() => setOpen(true)} className="w-full   text-gray-600 hover:bg-blue-500 hover:text-white duration-500 px-4 py-2 mt-4 cursor-pointer bg-transparent border-2 border-blue-500">Book Now</button>
+        }
 
         {/* modal code start */}
         <div>

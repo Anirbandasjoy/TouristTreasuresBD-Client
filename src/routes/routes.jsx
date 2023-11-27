@@ -15,6 +15,8 @@ import ManageUsers from "../components/dashboard/admin/manageUsers/ManageUsers";
 import GuideDetails from "../pages/home/travelGuide/GuideDetails";
 import Allpackage from "../pages/home/home/allpackage/Allpackage";
 import TourTypePackage from "../pages/home/tourType/tourTypePackage";
+import AdminRoutes from "./AdminRoutes";
+import GuideRoutes from "./GuideRoutes";
 
 export const router = createBrowserRouter([
     {
@@ -50,27 +52,28 @@ export const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <PribetRoutes><MyWishlist /></PribetRoutes>
-            },
-            {
-                path: "profile",
                 element: <PribetRoutes><Profile /></PribetRoutes>
             },
+            {
+                path: "wishlist",
+                element: <PribetRoutes><MyWishlist /></PribetRoutes>
+            },
+
             {
                 path: "my-bookings",
                 element: <PribetRoutes><Mybookings /></PribetRoutes>
             },
             {
                 path: "add-package",
-                element: <PribetRoutes><AddPackage /></PribetRoutes>
+                element: <PribetRoutes><AdminRoutes><AddPackage /></AdminRoutes></PribetRoutes>
             },
             {
                 path: "my-assigned-tours",
-                element: <PribetRoutes><MyAssignedTours /></PribetRoutes>
+                element: <PribetRoutes><GuideRoutes><MyAssignedTours /></GuideRoutes></PribetRoutes>
             },
             {
                 path: "manage-users",
-                element: <PribetRoutes><ManageUsers /></PribetRoutes>
+                element: <PribetRoutes><AdminRoutes><ManageUsers /></AdminRoutes></PribetRoutes>
             }
         ]
     },

@@ -4,6 +4,7 @@ import { AuthContext } from "../../../context/AuthProvider"
 import { IoMdClose } from "react-icons/io";
 import useAxios from "../../../hooks/useAxios";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 // import { Link } from "react-router-dom"
 const MyWishlist = () => {
     const { axiosSecure } = useAxios()
@@ -28,17 +29,25 @@ const MyWishlist = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 overflow-auto  h-[calc(100vh-200px)]">
                 {
                     wishlistData?.map((pac) => {
-                        return <div key={pac._id} className="shadow-lg h-[16rem]">
+                        return <div key={pac._id} className="shadow-lg text-center h-[25rem]">
                             <div className="border-b-8  border-b-[#4d99f5] relative">
                                 <img className="h-[10rem]" src={pac?.image} alt={pac.tourType} />
-                                <p className="bg-[#008000] text-white absolute bottom-0 right-0 p-2 font-bold">${pac?.price}</p>
+                                <p className="bg-[#008000]  text-white absolute bottom-0 right-0 p-2 font-bold">${pac?.price}</p>
                                 <IoMdClose onClick={() => handleDelete(pac?._id)} size={30} className="absolute bg-white p-1 z-[10] cursor-pointer top-2 right-2 text-gray-900 " />
                                 <div className="pbg w-full h-full absolute top-0">  </div>
                             </div>
                             <div className="px-10 pt-3 space-y-7 pb-2">
-                                <h1 className="text-left text-lg lg:text-2xl font-semibold">{pac?.tripTitle}</h1>
+                                <div className="flex items-center justify-between gap-4">
+                                    <div className="bg-gray-300 w-full h-[0.1px]"></div>
+                                    <h1 className=" text-lg lg:text-2xl font-semibold">{pac?.tripTitle}</h1>
+                                    <div className="bg-gray-300 w-full h-[0.1px]"></div>
+                                </div>
+                                <p className="text-gray-700 text-center">
+                                    {pac?.tourType}
+                                </p>
                                 <hr />
-                                {/* <button className="py-2 px-4  text-sm text-white -mb-4 bg-[#6ca9f3]"><Link to={`/package-details/${pac?._id}`}>View Package</Link></button> */}
+
+                                <button className="py-2 px-4  text-sm text-white -mb-4 bg-[#6ca9f3]"><Link to={`/package-details/${pac?._id}`}>View Package</Link></button>
                             </div>
                         </div>
                     })

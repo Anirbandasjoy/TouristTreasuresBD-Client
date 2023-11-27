@@ -55,7 +55,7 @@ const Allpackage = () => {
                                 <img className="h-[15rem]" src={pac?.image} alt={pac.tourType} />
                                 <p className="bg-[#008000] text-white absolute bottom-0 right-0 p-2 font-bold">${pac?.price}</p>
                                 {
-                                    role === "Tourist" && <FaHeartPulse onClick={() => handleCreateWishlistData(pac)} size={30} className="absolute z-[10] cursor-pointer top-2 right-2 text-gray-900 " />
+                                    role === "Tourist" && <FaHeartPulse onClick={() => handleCreateWishlistData(pac)} size={40} className="absolute z-[10] cursor-pointer top-2 right-2 text-red-600 bg-white p-2 rounded-full hover:bg-gray-300 duration-200 " />
                                 }
                                 {
                                     role === "Admin" && <CgClose onClick={() => handleDelete(pac?._id)} size={30} className="absolute z-[10] cursor-pointer top-2 right-2 bg-yellow-50 text-gray-900 " />
@@ -63,8 +63,14 @@ const Allpackage = () => {
                                 <div className="pbg w-full h-full absolute top-0">  </div>
                             </div>
                             <div className="px-10 pt-3 space-y-7 text-center pb-2">
-                                <h1 className="text-left text-lg lg:text-2xl font-semibold">{pac?.tripTitle}</h1>
-                                <hr />
+                                <div className="flex items-center justify-between gap-4">
+                                    <div className="bg-gray-300 w-full h-[0.1px]"></div>
+                                    <h1 className=" text-lg lg:text-2xl font-semibold">{pac?.tripTitle}</h1>
+                                    <div className="bg-gray-300 w-full h-[0.1px]"></div>
+                                </div>
+                                <p className="text-gray-700">
+                                    {pac?.tourType}
+                                </p>
                                 <button className="py-2 px-4   text-sm text-white -mb-4 bg-[#6ca9f3]"><Link to={`/package-details/${pac?._id}`}>View Package</Link></button>
                             </div>
                         </div>

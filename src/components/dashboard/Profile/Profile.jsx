@@ -4,9 +4,11 @@ import useGetRole from "../../../hooks/useGetRole"
 const Profile = () => {
     const { user, loading } = useContext(AuthContext)
     const { role } = useGetRole(user, loading)
+
     if (loading) {
         return <h1>Loading.....</h1>
     }
+
     return (
         <div className="flex justify-center  items-center h-[calc(100vh-200px)]">
             <div>
