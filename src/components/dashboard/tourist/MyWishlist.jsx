@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 const MyWishlist = () => {
     const { axiosSecure } = useAxios()
     const { user } = useContext(AuthContext)
-    const { wishlistData, refetch } = useGetWishlistData(user?.email);
+    const { wishlistData, isLoading, refetch } = useGetWishlistData(user?.email);
     const handleDelete = async (id) => {
 
         const { data } = await axiosSecure.delete(`delete-wishlistData/${id}`)
@@ -18,6 +18,9 @@ const MyWishlist = () => {
             refetch()
             toast.success("Deleted Successfully")
         }
+    }
+    if (isLoading) {
+        return <h1>Loading...</h1>
     }
     console.log(wishlistData)
     if (!wishlistData || wishlistData.length === 0) {

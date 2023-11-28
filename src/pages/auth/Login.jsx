@@ -65,6 +65,8 @@ const Login = () => {
         };
         const { data } = await axiosSecure.put(`/user/${userCredential?.user?.email}`, userInfo);
         console.log(data);
+        const res = await axiosSecure.post("/jwt", { email: userCredential?.user?.email })
+        console.log(res.data)
         toast.success("Login Successfully")
         navigate("/")
     }

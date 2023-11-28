@@ -26,6 +26,7 @@ const ProfileDropdown = () => {
                 console.log(data)
                 navigate("/login");
                 toast.success("Logout Successfully")
+
             }
         });
     }
