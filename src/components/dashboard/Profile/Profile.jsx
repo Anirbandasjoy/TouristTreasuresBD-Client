@@ -1,21 +1,28 @@
 import { useContext, useState } from "react"
 import { AuthContext } from "../../../context/AuthProvider"
 import useGetRole from "../../../hooks/useGetRole"
+import useAxios from "../../../hooks/useAxios"
 const Profile = () => {
     const { user, loading } = useContext(AuthContext)
     const { role } = useGetRole(user, loading)
     const [open, setOpen] = useState(false)
+    const { axiosSecure } = useAxios()
 
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const form = e.target;
         const story = form.story.value;
         const name = user?.displayName;
         const email = user?.email;
         const image = user?.photoURL;
+        const storyInfo = { story, name, email, image }
+        try {
+            const { data } = await axiosSecure.post("/create-story", storyInfo)
+            console.log(data)
+        } catch (error) {
+            console.log(error)
+        }
 
-        console.log({ story, name, email, image })
         form.reset()
     }
 
