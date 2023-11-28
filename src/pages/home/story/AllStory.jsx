@@ -9,7 +9,6 @@ const AllStory = () => {
     const { user, loading } = useContext(AuthContext);
     const { role } = useGetRole(user, loading);
     const { allStory, isLoading } = useGetAllStory();
-
     if (isLoading) {
         return <h1>Loading...</h1>;
     }

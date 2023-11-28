@@ -19,7 +19,13 @@ const TripPackages = () => {
             tourType: packageData?.tourType,
             tripTitle: packageData?.tripTitle,
             price: packageData?.price,
-            description: packageData?.description
+            description: packageData?.description,
+            images: {
+                image1: packageData?.images?.image1,
+                image2: packageData?.images?.image2,
+                image3: packageData?.images?.image3,
+                image4: packageData?.images?.image4,
+            },
         }
         try {
             const { data } = await axiosSecure.post("/create-wishListData", wishList)

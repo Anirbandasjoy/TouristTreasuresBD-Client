@@ -25,6 +25,8 @@ const PackageDetails = () => {
         },
     });
 
+    console.log(data)
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         const form = e.target;
@@ -55,7 +57,26 @@ const PackageDetails = () => {
     }
 
     return <div className="max-w-3xl mx-auto mt-10 pb-40">
+        <div className="mb-20">
+            <h1 className="text-xl lg:text-2xl mb-8 font-bold text-blue-400">Tour Sports</h1>
+            <div>
+                <div className="w-full">
+                    <img className="w-full h-full" src={data?.images?.image1} alt="" />
+                </div>
+                <div className="flex justify-center mt-1 items-center gap-1">
+                    <img className="w-2/4 h-[14rem]" src={data?.images?.image2} alt="" />
+                    <img className="w-2/4 h-[14rem]" src={data?.images?.image3} alt="" />
+                </div>
+                <div className="flex justify-center mt-1 items-center ">
+                    <img className="w-full h-[14rem]" src={data?.images?.image2} alt="" />
+                </div>
+            </div>
+        </div>
+        <div className="bg-gray-500 w-full h-[1px] mb-10">
+
+        </div>
         <div>
+            <h1 className="text-xl lg:text-2xl mb-8 font-bold text-blue-400">Package Details</h1>
             <img className="mx-auto w-full" src={data?.image} alt={data?.tripTitle} />
             <div className="mt-2 flex items-end gap-3">
                 <h1 className="text-xl lg:text-3xl  text-gray-800">Eductino tour</h1>
