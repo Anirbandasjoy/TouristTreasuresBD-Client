@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import toast from "react-hot-toast";
 const Contact = () => {
     const handleSubmit = (e) => {
@@ -8,6 +9,9 @@ const Contact = () => {
     }
     return (
         <div className="max-w-5xl mx-auto pb-20 pt-8">
+            <Helmet>
+                <title>Contact | TouristTreasuresBD</title>
+            </Helmet>
             <h1 className="text-xl lg:text-2xl mb-8 font-bold text-center text-blue-400">Contact Us</h1>
             <form className=" border border-blue-400 p-14 bg-gray-100 w-full space-y-11" onSubmit={handleSubmit}>
                 <div className="relative z-0 w-full mb-6 group">

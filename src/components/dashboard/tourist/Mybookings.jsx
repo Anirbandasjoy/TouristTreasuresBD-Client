@@ -4,6 +4,7 @@ import { AuthContext } from "../../../context/AuthProvider";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import useAxios from "../../../hooks/useAxios";
+import { Helmet } from "react-helmet";
 const Mybookings = () => {
     const { user } = useContext(AuthContext);
     const { axiosSecure } = useAxios()
@@ -40,6 +41,9 @@ const Mybookings = () => {
     }
     return (
         <div>
+            <Helmet>
+                <title>Dashboard-My-Booking | TouristTreasuresBD</title>
+            </Helmet>
             <h1 className="text-xl lg:text-2xl mb-8 font-bold text-blue-400 ">My Bookings</h1>
             <div className="relative  overflow-x-auto shadow-md sm:rounded-lg">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">

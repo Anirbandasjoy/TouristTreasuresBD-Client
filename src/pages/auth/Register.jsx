@@ -86,7 +86,7 @@ const Register = () => {
     return (
         <div className='max-w-6xl mx-auto bg-base-300'>
             <Helmet>
-                <title>Registation | Tour sport</title>
+                <title>Registation | TouristTreasuresBD</title>
             </Helmet>
             <div className='flex  justify-center h-screen items-center  px-4 md:px-0'>
                 <div className="w-full max-w-lg border border-blue-400  p-4  rounded-md  sm:p-6 md:p-8 ">

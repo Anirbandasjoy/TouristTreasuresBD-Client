@@ -5,6 +5,7 @@ import useGetAllusers from "../../../../hooks/useGetAllusers"
 import { RiDeleteBack2Line, RiDeleteBin6Line } from "react-icons/ri";
 import Swal from "sweetalert2";
 import useAxios from "../../../../hooks/useAxios";
+import { Helmet } from "react-helmet";
 
 const ManageUsers = () => {
     const { axiosSecure } = useAxios()
@@ -79,6 +80,9 @@ const ManageUsers = () => {
     }
     return (
         <div>
+            <Helmet>
+                <title>Dashboard-Manage-Users | TouristTreasuresBD</title>
+            </Helmet>
             <div className="relative h-[32rem] overflow-x-auto shadow-md sm:rounded-lg">
                 <div className="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900">
                     {/* <div>

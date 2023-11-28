@@ -52,16 +52,17 @@ const Navbar = () => {
                                 <Link to="/">Home</Link>
                             </li>
                             <li className="cursor-pointer">
-
-                                Community
+                                <Link to="/community">
+                                    Community
+                                </Link>
                             </li>
                             <li className="cursor-pointer">
 
-                                Blogs
+                                <Link to="/blog">Blogs</Link>
                             </li>
                             <li className="cursor-pointer">
 
-                                About Us
+                                <Link to="about">About Us</Link>
                             </li>
                             <li className="cursor-pointer">
 
@@ -76,7 +77,9 @@ const Navbar = () => {
 
                 </div>
             </nav>
+
             <TiArrowUpOutline size={35} className={`text-gray-500  cursor-pointer bottom-5 right-5 fixed ${color ? "" : "hidden"}`} />
+
         </div>
     )
 }

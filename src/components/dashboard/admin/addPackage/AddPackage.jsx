@@ -3,6 +3,7 @@ import { DiClojureAlt } from "react-icons/di";
 import useAxios from "../../../../hooks/useAxios";
 import uploadImage from "../../../../api/uploadImage";
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 const tourTypes = [
     "Historical-Tours",
     "Adventure-Expeditions",
@@ -64,6 +65,9 @@ const AddPackage = () => {
     }
     return (
         <div>
+            <Helmet>
+                <title>Dashboard-Add-Package | TouristTreasuresBD</title>
+            </Helmet>
             <div className="flex justify-center border bg-blue-50 border-[#1e40af] items-center h-[calc(100vh-60px)]">
 
                 <form className="w-3/4  mx-auto" onSubmit={handleSubmit}>

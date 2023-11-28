@@ -22,6 +22,9 @@ import AllStory from "../pages/home/story/AllStory";
 import WishlistDetails from "../components/dashboard/tourist/WishlistDetails";
 import ErrorPage from "../pages/error/ErrorPage";
 import Contact from "../pages/contact/Contact";
+import Blog from "../pages/blog/Blog";
+import About from "../pages/about/About";
+import Community from "../pages/community/Community";
 
 export const router = createBrowserRouter([
     {
@@ -65,6 +68,18 @@ export const router = createBrowserRouter([
             {
                 path: "contact",
                 element: <Contact />
+            },
+            {
+                path: "blog",
+                element: <Blog />
+            },
+            {
+                path: "about",
+                element: <About />
+            },
+            {
+                path: "community",
+                element: <Community />
             }
         ]
     },

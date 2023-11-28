@@ -3,6 +3,7 @@ import useGetBookingDataByGuide from "../../../../hooks/useGetBookingDataByGuide
 import { useContext } from "react"
 import { AuthContext } from "../../../../context/AuthProvider"
 import useAxios from "../../../../hooks/useAxios"
+import { Helmet } from "react-helmet"
 
 const MyAssignedTours = () => {
     const { axiosSecure } = useAxios()
@@ -39,6 +40,9 @@ const MyAssignedTours = () => {
     }
     return (
         <div className="relative  overflow-x-auto shadow-md sm:rounded-lg">
+            <Helmet>
+                <title>Dashboard-My-Assigned-Tour | TouristTreasuresBD</title>
+            </Helmet>
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead className="text-xs  text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>

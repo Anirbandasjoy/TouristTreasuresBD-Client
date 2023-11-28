@@ -74,9 +74,9 @@ const Login = () => {
 
 
     return (
-        <div className='  flex justify-center flex-col lg:flex-row items-center bg-base-300 dark:bg-gray-900 dark:text-white'>
+        <div className='  flex justify-center flex-col gap-20 lg:flex-row items-center bg-base-300 dark:bg-gray-900 dark:text-white'>
             <Helmet>
-                <title>Login | Tour </title>
+                <title>Login | TouristTreasuresBD </title>
             </Helmet>
             <div className='flex-1 text-center  '>
                 <div className='w-3/4 mx-auto'>

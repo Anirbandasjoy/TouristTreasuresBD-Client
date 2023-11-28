@@ -2,6 +2,7 @@ import { useContext, useState } from "react"
 import { AuthContext } from "../../../context/AuthProvider"
 import useGetRole from "../../../hooks/useGetRole"
 import useAxios from "../../../hooks/useAxios"
+import { Helmet } from "react-helmet"
 const Profile = () => {
     const { user, loading } = useContext(AuthContext)
     const { role } = useGetRole(user, loading)
@@ -35,6 +36,9 @@ const Profile = () => {
 
     return (
         <div className="flex justify-center  items-center h-[calc(100vh-200px)]">
+            <Helmet>
+                <title>Dashboard-Profile | TouristTreasuresBD</title>
+            </Helmet>
             <div>
                 <div className="">
                     <div className="space-y-4">

@@ -5,6 +5,7 @@ import { IoMdClose } from "react-icons/io";
 import useAxios from "../../../hooks/useAxios";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 // import { Link } from "react-router-dom"
 const MyWishlist = () => {
     const { axiosSecure } = useAxios()
@@ -28,6 +29,9 @@ const MyWishlist = () => {
     }
     return (
         <div>
+            <Helmet>
+                <title>Dashboard-My-Wishlist | TouristTreasuresBD</title>
+            </Helmet>
             <h1 className="text-xl lg:text-2xl mb-8 font-bold text-blue-400">My WishList</h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 overflow-auto  h-[calc(100vh-200px)]">
                 {
