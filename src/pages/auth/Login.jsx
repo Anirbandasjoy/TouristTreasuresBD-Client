@@ -84,7 +84,7 @@ const Login = () => {
                 </div>
             </div>
             <div className='flex h-screen items-center lg:w-2/4  w-full justify-center px-4 md:px-0 flex-1'>
-                <div className="w-full max-w-lg p-4   rounded-md  sm:p-6 md:p-8 ">
+                <div className="w-full max-w-lg p-4 border border-blue-400   rounded-md  sm:p-6 md:p-8 ">
                     <form className="space-y-6 " onSubmit={formik.handleSubmit}>
                         <h5 className="text-xl font-medium text-gray-900 dark:text-white text-center">Sign In </h5>
                         <p className='text-center text-sm text-red-600'>

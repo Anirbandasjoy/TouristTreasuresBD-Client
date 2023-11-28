@@ -19,11 +19,15 @@ import AdminRoutes from "./AdminRoutes";
 import GuideRoutes from "./GuideRoutes";
 import StoryDetails from "../pages/home/story/StoryDetails";
 import AllStory from "../pages/home/story/AllStory";
+import WishlistDetails from "../components/dashboard/tourist/WishlistDetails";
+import ErrorPage from "../pages/error/ErrorPage";
+import Contact from "../pages/contact/Contact";
 
 export const router = createBrowserRouter([
     {
         path: "/",
         element: <MainLayout />,
+        errorElement: <ErrorPage />,
         children: [
             {
                 index: true,
@@ -53,6 +57,14 @@ export const router = createBrowserRouter([
             {
                 path: "all-story",
                 element: <AllStory />
+            },
+            {
+                path: "wishlist-details/:id",
+                element: <WishlistDetails />
+            },
+            {
+                path: "contact",
+                element: <Contact />
             }
         ]
     },

@@ -8,10 +8,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
 import useGetRole from "../../../hooks/useGetRole";
-import MeetOutGuide from "./MeetOutGuide";
-import FAQItem from "./Accordion";
+import MeetOutGuide from "../../../pages/home/travelGuide/MeetOutGuide";
+import FAQItem from "../../../pages/home/travelGuide/Accordion";
 
-const PackageDetails = () => {
+const WishlistDetails = () => {
     const { data: guide } = useGetRoleUser("Guide")
     const [startDate, setStartDate] = useState(new Date());
     const { axiosSecure } = useAxios();
@@ -20,9 +20,9 @@ const PackageDetails = () => {
     const { id } = useParams();
     const [open, setOpen] = useState(false)
     const { data, isLoading } = useQuery({
-        queryKey: ["singlePackage", id],
+        queryKey: ["singleWishlist", id],
         queryFn: async () => {
-            const response = await axiosSecure.get(`/package/${id}`);
+            const response = await axiosSecure.get(`/get-single-wishListData/${id}`);
             return response.data;
         },
     });
@@ -74,16 +74,14 @@ const PackageDetails = () => {
                 </div>
             </div>
         </div>
+
         <h1 className="text-xl lg:text-2xl mb-10 font-bold text-blue-400">Tour Guide Team</h1>
-        {/* tourist code start */}
         <MeetOutGuide />
         <div className="mt-16">
             <FAQItem question={"What will we do on Day 1?"} answer="Answer 1" />
             <FAQItem question={"What will we do on Day 2?"} answer="Answer 1" />
         </div>
-        {/* tourist code end */}
         <div className="bg-gray-500 w-full h-[1px] mb-10">
-
         </div>
         <div>
             <h1 className="text-xl lg:text-2xl mb-8 font-bold text-blue-400">Book Package</h1>
@@ -100,6 +98,7 @@ const PackageDetails = () => {
         {
             role === "Tourist" && <button onClick={() => setOpen(true)} className="w-full   text-gray-600 hover:bg-blue-500 hover:text-white duration-500 px-4 py-2 mt-4 cursor-pointer bg-transparent border-2 border-blue-500">Book Now</button>
         }
+
 
         {/* modal code start */}
         <div>
@@ -285,4 +284,4 @@ const PackageDetails = () => {
     </div>;
 };
 
-export default PackageDetails;
+export default WishlistDetails;

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { FacebookShareButton, FacebookIcon } from "react-share";
+import { FaFacebook } from "react-icons/fa6";
 import useGetAllStory from "../../../hooks/useGetAllStory";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthProvider";
@@ -41,12 +42,21 @@ const Story = () => {
                         </Link>
                         <div className="bg-gray-300 h-[2px] w-full mt-5"></div>
                         <div className="mt-6 text-center">
-                            <FacebookShareButton url={`https://assignment12-848ad.web.app/story-details/${story?._id}`} quote={story?.story || ''}>
-                                <div className="flex items-center text-blue-600 hover:underline">
-                                    <span className="mr-2">Share on Facebook</span>
-                                    <FacebookIcon size={20} round />
-                                </div>
-                            </FacebookShareButton>
+                            {user ? (  // Check if the user is logged in
+                                <FacebookShareButton url={`https://assignment12-848ad.web.app/story-details/${story?._id}`} quote={story?.story || ''}>
+                                    <div className="flex items-center text-blue-600 hover:underline">
+                                        <span className="mr-2">Share on Facebook</span>
+                                        <FacebookIcon size={20} round />
+                                    </div>
+                                </FacebookShareButton>
+                            ) : (
+                                <Link to="/login">  {/* Redirect to the login page if the user is not logged in */}
+                                    <div className="text-blue-600 flex items-center gap-3 hover:underline">
+                                        <p> Share on Facebook </p>
+                                        <FaFacebook />
+                                    </div>
+                                </Link>
+                            )}
                         </div>
                     </div>
                 ))}

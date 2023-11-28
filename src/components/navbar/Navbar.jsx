@@ -65,7 +65,9 @@ const Navbar = () => {
                             </li>
                             <li className="cursor-pointer">
 
-                                Contact Us
+                                <Link to="/contact">
+                                    Contact Us
+                                </Link>
                             </li>
 
                         </ul>

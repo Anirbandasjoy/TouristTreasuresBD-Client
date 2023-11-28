@@ -83,15 +83,13 @@ const Register = () => {
         toast.success("Login Successfully")
         navigate("/")
     }
-
-
     return (
         <div className='max-w-6xl mx-auto bg-base-300'>
             <Helmet>
                 <title>Registation | Tour sport</title>
             </Helmet>
             <div className='flex  justify-center h-screen items-center  px-4 md:px-0'>
-                <div className="w-full max-w-lg  p-4  rounded-md  sm:p-6 md:p-8 ">
+                <div className="w-full max-w-lg border border-blue-400  p-4  rounded-md  sm:p-6 md:p-8 ">
                     <form className="space-y-4 " onSubmit={formik.handleSubmit}>
                         <h5 className="text-xl font-medium text-gray-900  text-center dark:text-white">Sign Up </h5>
                         <p className='text-center text-sm text-red-600'>

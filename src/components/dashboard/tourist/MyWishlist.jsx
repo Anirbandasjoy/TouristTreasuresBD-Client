@@ -50,7 +50,7 @@ const MyWishlist = () => {
                                 </p>
                                 <hr />
 
-                                <button className="py-2 px-4  text-sm text-white -mb-4 bg-[#6ca9f3]"><Link to={`/package-details/${pac?._id}`}>View Package</Link></button>
+                                <button className="py-2 px-4  text-sm text-white -mb-4 bg-[#6ca9f3]"><Link to={`/wishlist-details/${pac?._id}`}>View Package</Link></button>
                             </div>
                         </div>
                     })

@@ -29,7 +29,7 @@ const MeetOutGuide = () => {
                 }}
                 breakpoints={{
                     769: {
-                        slidesPerView: 4,
+                        slidesPerView: 3,
                         slidesPerGroup: 2,
                     },
                 }}
@@ -44,11 +44,11 @@ const MeetOutGuide = () => {
 
                 {data?.map((guide) => (
                     <SwiperSlide key={guide?.email}>
-                        <div className="h-[18rem]">
+                        <div className="h-[19rem]">
                             <img className="h-full w-full" src={guide?.image} alt={guide?.email} />
                         </div>
-                        <div className="pt-6 pb-4">
-                            <Link to={`guide-details/${guide._id}`} className="py-2 px-4 z-[10] bg-blue-400 text-white font-bold text-xs">
+                        <div className="pt-6 pb-6  text-center">
+                            <Link to={`/guide-details/${guide._id}`} className="py-2  px-4 z-[10] bg-blue-400 text-white font-bold text-xs">
                                 See Details
                             </Link>
                         </div>
