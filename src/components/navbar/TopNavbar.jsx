@@ -5,6 +5,7 @@ import { FaWhatsapp } from "react-icons/fa";
 
 import ProfileDropdown from "./ProfileDropdown";
 import { IoIosArrowRoundForward } from "react-icons/io"
+import { Link } from "react-router-dom";
 const TopNavbar = () => {
     return (
         <div className="border-b-1 border-b-gray-300 pb-4">
@@ -12,7 +13,7 @@ const TopNavbar = () => {
 
             <nav className="flex flex-col sm:flex-row  text-center gap-4 sm:gap-0 sm:justify-between mt-2 px-4">
                 <div className="flex items-center justify-center gap-1">
-                    <p className="cursor-pointer">Quick help</p>
+                    <Link to="/contact"> <p className="cursor-pointer">Quick help</p></Link>
                     <IoIosArrowRoundForward className="" />
                 </div>
 

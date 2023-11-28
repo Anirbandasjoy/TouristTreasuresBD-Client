@@ -3,6 +3,7 @@ import { AuthContext } from "../../../context/AuthProvider"
 import useGetRole from "../../../hooks/useGetRole"
 import useAxios from "../../../hooks/useAxios"
 import { Helmet } from "react-helmet"
+import toast from "react-hot-toast"
 const Profile = () => {
     const { user, loading } = useContext(AuthContext)
     const { role } = useGetRole(user, loading)
@@ -21,6 +22,7 @@ const Profile = () => {
         try {
             const { data } = await axiosSecure.post("/create-story", storyInfo)
             console.log(data)
+            toast.success("Added Story")
         } catch (error) {
             console.log(error)
         }

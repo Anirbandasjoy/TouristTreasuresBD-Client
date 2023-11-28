@@ -111,7 +111,7 @@ const ManageUsers = () => {
                             </div>
                         </div>
                     </div> */}
-                    <label htmlFor="table-search" className="sr-only">Search</label>
+                    {/* <label htmlFor="table-search" className="sr-only">Search</label>
                     <div className="relative">
                         <div className="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
                             <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -119,7 +119,7 @@ const ManageUsers = () => {
                             </svg>
                         </div>
                         <input type="text" id="table-search-users" className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for users" />
-                    </div>
+                    </div> */}
                 </div>
                 <table className="w-full  text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -166,10 +166,10 @@ const ManageUsers = () => {
                                     </td>
                                     <td className="px-6 lg:py-4  text-center">
                                         {
-                                            user?.role === "Guide" ? <button disabled className="bg-yellow-200 cursor-not-allowed text-black lg:px-3 lg:py-2 text-xs w-14 lg:w-20 px-2 py-1">Guide</button> : <button onClick={() => handleCreateGuide(user?._id)} className="bg-yellow-400 text-black lg:px-3 lg:py-2 text-xs w-14 lg:w-20 px-2 py-1">Guide</button>
+                                            user?.role === "Tourist" ? <button onClick={() => handleCreateGuide(user?._id)} className="bg-yellow-400 text-black lg:px-3 lg:py-2 text-xs w-14 lg:w-20 px-2 py-1">Guide</button> : <button disabled className="bg-yellow-200 cursor-not-allowed text-black lg:px-3 lg:py-2 text-xs w-14 lg:w-20 px-2 py-1">Guide</button>
                                         }
                                         {
-                                            user?.role === "Admin" ? <button disabled onClick={handleCreateAdmin} className="bg-blue-200 text-black cursor-not-allowed lg:px-3 lg:py-2 text-xs w-14 lg:w-20 px-2 py-1">Admin</button> : <button onClick={() => handleCreateAdmin(user._id)} className="bg-blue-400 text-gray-200 lg:px-3 lg:py-2 text-xs w-14 lg:w-20 px-2 py-1">Admin</button>
+                                            user?.role === "Tourist" ? <button onClick={() => handleCreateAdmin(user._id)} className="bg-blue-400 text-gray-200 lg:px-3 lg:py-2 text-xs w-14 lg:w-20 px-2 py-1">Admin</button> : <button disabled onClick={handleCreateAdmin} className="bg-blue-200 text-black cursor-not-allowed lg:px-3 lg:py-2 text-xs w-14 lg:w-20 px-2 py-1">Admin</button>
                                         }
                                     </td>
                                 </tr>
