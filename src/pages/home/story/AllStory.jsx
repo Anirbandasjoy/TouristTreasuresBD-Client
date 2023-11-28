@@ -4,11 +4,24 @@ import useGetAllStory from "../../../hooks/useGetAllStory";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthProvider";
 import useGetRole from "../../../hooks/useGetRole";
+import useAxios from "../../../hooks/useAxios";
+import toast from "react-hot-toast";
 
 const AllStory = () => {
+    const { axiosSecure } = useAxios()
     const { user, loading } = useContext(AuthContext);
     const { role } = useGetRole(user, loading);
-    const { allStory, isLoading } = useGetAllStory();
+    const { allStory, isLoading, refetch } = useGetAllStory();
+    const handleDeleteStory = async (id) => {
+        try {
+            const { data } = await axiosSecure.delete(`/deleteStory/${id}`)
+            console.log(data)
+            refetch()
+            toast.success("Delete Successfully")
+        } catch (error) {
+            console.log(error)
+        }
+    }
     if (isLoading) {
         return <h1>Loading...</h1>;
     }
@@ -19,7 +32,7 @@ const AllStory = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {allStory?.map((story) => (
                     <div key={story?._id} className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                        {role === "Admin" && <p className="text-right text-lg cursor-pointer">X</p>}
+                        {role === "Admin" && <p onClick={() => handleDeleteStory(story?._id)} className="text-right text-lg cursor-pointer">X</p>}
                         <div className="flex gap-4">
                             <img src={story?.image} className="w-12 h-12 bg-gray-100 mb-3 rounded-full p-2" alt="" />
                             <div>

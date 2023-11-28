@@ -5,11 +5,24 @@ import useGetAllStory from "../../../hooks/useGetAllStory";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthProvider";
 import useGetRole from "../../../hooks/useGetRole";
+import useAxios from "../../../hooks/useAxios";
+import toast from "react-hot-toast";
 
 const Story = () => {
+    const { axiosSecure } = useAxios()
     const { user, loading } = useContext(AuthContext);
     const { role } = useGetRole(user, loading);
-    const { allStory, isLoading } = useGetAllStory();
+    const { allStory, isLoading, refetch } = useGetAllStory();
+    const handleDeleteStory = async (id) => {
+        try {
+            const { data } = await axiosSecure.delete(`/deleteStory/${id}`)
+            refetch()
+            console.log(data)
+            toast.success("Delete Successfully")
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     if (isLoading) {
         return <h1>Loading...</h1>;
@@ -21,7 +34,7 @@ const Story = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {allStory?.slice(0, 4).map((story) => (
                     <div key={story?._id} className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                        {role === "Admin" && <p className="text-right text-lg cursor-pointer">X</p>}
+                        {role === "Admin" && <p onClick={() => handleDeleteStory(story?._id)} className="text-right text-lg cursor-pointer">X</p>}
                         <div className="flex gap-4">
                             <img src={story?.image} className="w-12 h-12 bg-gray-100 mb-3 rounded-full p-2" alt="" />
                             <div>
@@ -62,13 +75,15 @@ const Story = () => {
                 ))}
             </div>
             <div className="text-center mt-3">
-                <Link to="/all-story">
-                    <button className="relative mt-10 inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
-                        <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                            All Storys
-                        </span>
-                    </button>
-                </Link>
+                {
+                    allStory.length > 4 && <Link to="/all-story">
+                        <button className="relative mt-10 inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+                            <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                All Storys
+                            </span>
+                        </button>
+                    </Link>
+                }
             </div>
         </div>
     );
