@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthProvider";
 import useGetRole from "../../../hooks/useGetRole";
 
-const Story = () => {
+const AllStory = () => {
     const { user, loading } = useContext(AuthContext);
     const { role } = useGetRole(user, loading);
     const { allStory, isLoading } = useGetAllStory();
@@ -15,10 +15,10 @@ const Story = () => {
     }
 
     return (
-        <div className="my-32 max-w-5xl mx-auto">
-            <h1 className="text-xl lg:text-2xl mb-8 font-bold text-blue-400">Story</h1>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {allStory?.slice(0, 4).map((story) => (
+        <div className=" mt-8 pb-10 max-w-5xl mx-auto">
+            <h1 className="text-xl lg:text-2xl mb-8 font-bold text-blue-400">All Story</h1>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {allStory?.map((story) => (
                     <div key={story?._id} className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                         {role === "Admin" && <p className="text-right text-lg cursor-pointer">X</p>}
                         <div className="flex gap-4">
@@ -51,17 +51,9 @@ const Story = () => {
                     </div>
                 ))}
             </div>
-            <div className="text-center mt-3">
-                <Link to="/all-story">
-                    <button className="relative mt-10 inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
-                        <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                            All Storys
-                        </span>
-                    </button>
-                </Link>
-            </div>
+
         </div>
     );
 };
 
-export default Story;
+export default AllStory;

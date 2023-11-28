@@ -11,11 +11,12 @@ const Profile = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const form = e.target;
+        const sportName = form.sportName.value;
         const story = form.story.value;
         const name = user?.displayName;
         const email = user?.email;
         const image = user?.photoURL;
-        const storyInfo = { story, name, email, image }
+        const storyInfo = { sportName, story, name, email, image }
         try {
             const { data } = await axiosSecure.post("/create-story", storyInfo)
             console.log(data)
@@ -100,11 +101,16 @@ const Profile = () => {
                             <form className="p-4 md:p-5" onSubmit={handleSubmit} >
                                 <div className="grid gap-8 mb-4 grid-cols-2">
                                     <div className="col-span-2">
+                                        <div className="mb-5">
+                                            <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sport Name</label>
+                                            <input type="text" name="sportName" id="sportName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Sport Name" required />
+                                        </div>
                                         <div className="flex  gap-4">
+
                                             <div className="w-full">
 
                                                 <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Story</label>
-                                                <textarea id="story" name="story" rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your story here..."></textarea>
+                                                <textarea minLength={200} id="story" name="story" rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your story here..."></textarea>
 
                                             </div>
 
@@ -115,7 +121,7 @@ const Profile = () => {
                                     {/* ... other form fields ... */}
                                 </div>
                                 <button
-                                    onClick={() => setOpen(false)}
+
                                     type="submit"
                                     className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                 >

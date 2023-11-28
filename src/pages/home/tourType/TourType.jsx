@@ -10,6 +10,7 @@ const TourType = () => {
     const data = toureTypeData
     return (
         <div className="max-w-5xl my-14 mt-40 mx-auto">
+            <h1 className="text-xl lg:text-2xl mb-20 font-bold text-blue-400 ">Tour Types</h1>
             <Swiper
                 slidesPerView={1}
                 centeredSlides={false}

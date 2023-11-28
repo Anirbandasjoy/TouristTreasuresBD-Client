@@ -17,6 +17,8 @@ import Allpackage from "../pages/home/home/allpackage/Allpackage";
 import TourTypePackage from "../pages/home/tourType/tourTypePackage";
 import AdminRoutes from "./AdminRoutes";
 import GuideRoutes from "./GuideRoutes";
+import StoryDetails from "../pages/home/story/StoryDetails";
+import AllStory from "../pages/home/story/AllStory";
 
 export const router = createBrowserRouter([
     {
@@ -42,6 +44,15 @@ export const router = createBrowserRouter([
             {
                 path: "tourType-data/:type",
                 element: <TourTypePackage />
+            },
+            {
+                path: "story-details/:id",
+                element: <StoryDetails />
+
+            },
+            {
+                path: "all-story",
+                element: <AllStory />
             }
         ]
     },
