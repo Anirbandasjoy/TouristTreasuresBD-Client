@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import useAxios from "../../../../hooks/useAxios";
 import { AuthContext } from "../../../../context/AuthProvider";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 
 // eslint-disable-next-line react/prop-types
@@ -13,6 +14,7 @@ const CheckoutForm = ({ state }) => {
     const [err, setErr] = useState('')
     const [clintSecret, setClintSecret] = useState("")
     const { axiosSecure } = useAxios()
+    const navigate = useNavigate()
     const { user } = useContext(AuthContext)
     useEffect(() => {
         axiosSecure.post("/create-payment-intent", { price: Number(state?.price) })
@@ -64,13 +66,16 @@ const CheckoutForm = ({ state }) => {
             if (paymentIntent.status === "succeeded") {
                 console.log('transection id ', paymentIntent.id)
                 toast.success("Payment Successfull", paymentIntent.id)
+                axiosSecure.patch(`/update-paymentStatus/${state?._id}?paymentStatus="paid"`)
+                    .then(({ data }) => {
+                        console.log(data)
+                        navigate("/dashboard/my-bookings")
+                    })
             }
         }
-
     }
     return (
         <div>
-
             <form onSubmit={handleSubmit}>
                 <CardElement
                     options={{

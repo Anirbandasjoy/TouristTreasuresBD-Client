@@ -1,5 +1,7 @@
 import toast from "react-hot-toast"
 import useGetBookingDataByGuide from "../../../../hooks/useGetBookingDataByGuide"
+import { AiOutlineClose } from "react-icons/ai";
+import { FcCheckmark } from "react-icons/fc";
 import { useContext } from "react"
 import { AuthContext } from "../../../../context/AuthProvider"
 import useAxios from "../../../../hooks/useAxios"
@@ -58,6 +60,9 @@ const MyAssignedTours = () => {
                         <th scope="col" className="px-6 py-3">
                             Tour Price
                         </th>
+                        <th scope="col" className="px-6 py-3 text-center">
+                            Payment Status
+                        </th>
                         <th scope="col" className="px-6 text-center  py-3">
                             <span className="">Action</span>
                         </th>
@@ -81,7 +86,12 @@ const MyAssignedTours = () => {
 
                                     ${book?.price}
                                 </td>
+                                <td className="px-6 py-4  text-center">
 
+                                    {
+                                        book?.paymentStatus === "unpaid" ? <AiOutlineClose size={30} className="mx-auto" /> : <FcCheckmark size={30} className="mx-auto" />
+                                    }
+                                </td>
                                 <td className="px-6 text-right  lg:text-center py-4 space-y-2  space-x-2">
                                     {
                                         book?.status === "In-Review" && <>

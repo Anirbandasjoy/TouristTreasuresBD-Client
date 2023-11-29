@@ -40,8 +40,9 @@ const WishlistDetails = () => {
         const tripTitle = data?.tripTitle
         const tourImage = data?.image;
         const tourType = data?.tourType;
-        const status = "In-Review"
-        const bookingInfo = { touristName, touristEmail, touristImage, price, guideEmail, status, date: startDate, tripTitle, tourImage, tourType }
+        const status = "In-Review";
+        const paymentStatus = "unpaid"
+        const bookingInfo = { touristName, touristEmail, touristImage, price, guideEmail, status, date: startDate, tripTitle, tourImage, tourType, paymentStatus }
         console.log(bookingInfo)
         try {
             const { data } = await axiosSecure.post("/create-booking", bookingInfo)
@@ -78,8 +79,8 @@ const WishlistDetails = () => {
         <h1 className="text-xl lg:text-2xl mb-10 font-bold text-blue-400">Tour Guide Team</h1>
         <MeetOutGuide />
         <div className="mt-16">
-            <FAQItem question={"What will we do on Day 1?"} answer="Answer 1" />
-            <FAQItem question={"What will we do on Day 2?"} answer="Answer 1" />
+            <FAQItem question={"What will we do on Day 1?"} answer="After going to the destination stall, I will clean the common areas and arrange for the hostel to stay later" />
+            <FAQItem question={"What will we do on Day 2?"} answer="All the famous places of the destination will be visited" />
         </div>
         <div className="bg-gray-500 w-full h-[1px] mb-10">
         </div>
