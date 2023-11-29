@@ -25,6 +25,7 @@ import Contact from "../pages/contact/Contact";
 import Blog from "../pages/blog/Blog";
 import About from "../pages/about/About";
 import Community from "../pages/community/Community";
+import Payment from "../components/dashboard/tourist/payment/Payment";
 
 export const router = createBrowserRouter([
     {
@@ -80,7 +81,8 @@ export const router = createBrowserRouter([
             {
                 path: "community",
                 element: <Community />
-            }
+            },
+
         ]
     },
 
@@ -112,6 +114,10 @@ export const router = createBrowserRouter([
             {
                 path: "manage-users",
                 element: <PribetRoutes><AdminRoutes><ManageUsers /></AdminRoutes></PribetRoutes>
+            },
+            {
+                path: "payment",
+                element: <Payment />
             }
         ]
     },

@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import useAxios from "../../../hooks/useAxios";
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
 const Mybookings = () => {
     const { user } = useContext(AuthContext);
     const { axiosSecure } = useAxios()
@@ -30,9 +31,7 @@ const Mybookings = () => {
             }
         });
     }
-    const handlePaymentSystem = () => {
-        toast.success("Payment Successfully")
-    }
+
     if (isLoading) {
         return <h1>Loading...</h1>;
     }
@@ -90,7 +89,9 @@ const Mybookings = () => {
                                 </td>
                                 <td className="px-6 py-4   space-y-2 lg:text-center text-right space-x-2">
                                     {
-                                        book?.status === "Accepted" ? <button onClick={handlePaymentSystem} className="w-16 text-xs font-medium bg-blue-500 text-white px-2 py-1">Pay</button> : <button disabled className="w-16 text-xs font-medium bg-blue-200 text-black  px-2 py-1 cursor-not-allowed">Pay</button>
+                                        book?.status === "Accepted" ? <Link to="/dashboard/payment" state={book}>
+                                            <button className="w-16 text-xs font-medium bg-blue-500 text-white px-2 py-1">Pay</button>
+                                        </Link> : <button disabled className="w-16 text-xs font-medium bg-blue-200 text-black  px-2 py-1 cursor-not-allowed">Pay</button>
                                     }
                                     {
                                         book?.status === "In-Review" ? <button onClick={() => handleDelete(book?._id)} className="w-16 text-xs font-medium bg-blue-500 text-white px-2 py-1">Cancel</button> : <button disabled className="w-16 text-xs cursor-not-allowed font-medium bg-blue-200 text-gray-700 px-2 py-1">Cancel</button>
