@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import useAxios from "../../../hooks/useAxios";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
+import DashboardLoading from "../loading/dashboardLoading";
 const Mybookings = () => {
     const { user } = useContext(AuthContext);
     const { axiosSecure } = useAxios()
@@ -33,7 +34,7 @@ const Mybookings = () => {
     }
 
     if (isLoading) {
-        return <h1>Loading...</h1>;
+        return <DashboardLoading />
     }
     if (!bookingData || bookingData.length === 0) {
         return <h1 className="text-3xl flex h-[calc(100vh-100px)] justify-center items-center">Not Avilable</h1>

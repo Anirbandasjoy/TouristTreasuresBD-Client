@@ -6,6 +6,7 @@ import useAxios from "../../../hooks/useAxios";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import DashboardLoading from "../loading/dashboardLoading";
 // import { Link } from "react-router-dom"
 const MyWishlist = () => {
     const { axiosSecure } = useAxios()
@@ -21,7 +22,7 @@ const MyWishlist = () => {
         }
     }
     if (isLoading) {
-        return <h1>Loading...</h1>
+        return <DashboardLoading />
     }
     console.log(wishlistData)
     if (!wishlistData || wishlistData.length === 0) {

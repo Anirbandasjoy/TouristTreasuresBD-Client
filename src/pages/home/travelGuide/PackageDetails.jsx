@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import useGetRole from "../../../hooks/useGetRole";
 import MeetOutGuide from "./MeetOutGuide";
 import FAQItem from "./Accordion";
+import Loading from "../../../components/Loading/Loading";
 
 const PackageDetails = () => {
     const { data: guide } = useGetRoleUser("Guide")
@@ -56,7 +57,7 @@ const PackageDetails = () => {
 
 
     if (isLoading) {
-        return <h1>Loading.....</h1>
+        return <Loading />
     }
 
     return <div className="max-w-3xl mx-auto mt-10 pb-40">
@@ -90,13 +91,13 @@ const PackageDetails = () => {
             <h1 className="text-xl lg:text-2xl mb-8 font-bold text-blue-400">Book Package</h1>
             <img className="mx-auto w-full" src={data?.image} alt={data?.tripTitle} />
             <div className="mt-2 flex items-end gap-3">
-                <h1 className="text-xl lg:text-3xl  text-gray-800">Eductino tour</h1>
+                <h1 className="text-xl lg:text-3xl  text-gray-800">{data?.tripTitle}</h1>
                 <p className="text-sm lg:text-xl text-blue-500">/ ${data?.price}</p>
             </div>
             <div className="w-full h-[.5px] bg-slate-400 mt-4"></div>
         </div>
         <div className="mt-4">
-            <p className="text-justify">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto asperiores corrupti inventore sint. Molestiae reprehenderit impedit deserunt quasi at voluptatum atque accusantium alias, nihil nostrum eaque, qui fugiat ipsa, aliquam iure dolore. Repellendus, quos quas? Non recusandae dolor quod in.</p>
+            <p className="text-justify">{data?.description}</p>
         </div>
         {
             role === "Tourist" && <button onClick={() => setOpen(true)} className="w-full   text-gray-600 hover:bg-blue-500 hover:text-white duration-500 px-4 py-2 mt-4 cursor-pointer bg-transparent border-2 border-blue-500">Book Now</button>

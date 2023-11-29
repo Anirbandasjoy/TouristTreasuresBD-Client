@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import useGetRole from "../../../hooks/useGetRole";
 import MeetOutGuide from "../../../pages/home/travelGuide/MeetOutGuide";
 import FAQItem from "../../../pages/home/travelGuide/Accordion";
+import Loading from "../../Loading/Loading";
 
 const WishlistDetails = () => {
     const { data: guide } = useGetRoleUser("Guide")
@@ -56,7 +57,7 @@ const WishlistDetails = () => {
 
 
     if (isLoading) {
-        return <h1>Loading.....</h1>
+        return <Loading />
     }
 
     return <div className="max-w-3xl mx-auto mt-10 pb-40">

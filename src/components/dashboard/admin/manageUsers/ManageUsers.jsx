@@ -6,6 +6,7 @@ import { RiDeleteBack2Line, RiDeleteBin6Line } from "react-icons/ri";
 import Swal from "sweetalert2";
 import useAxios from "../../../../hooks/useAxios";
 import { Helmet } from "react-helmet";
+import DashboardLoading from "../../loading/dashboardLoading";
 
 const ManageUsers = () => {
     const { axiosSecure } = useAxios()
@@ -76,7 +77,7 @@ const ManageUsers = () => {
     }
 
     if (isLoading) {
-        return <h1>Loading....</h1>
+        return <DashboardLoading />
     }
     return (
         <div>

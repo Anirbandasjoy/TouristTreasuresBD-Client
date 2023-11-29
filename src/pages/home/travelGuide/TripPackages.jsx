@@ -7,6 +7,7 @@ import useAxios from "../../../hooks/useAxios";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthProvider";
 import useGetRole from "../../../hooks/useGetRole";
+import Loading from "../../../components/Loading/Loading";
 const TripPackages = () => {
     const { user, loading } = useContext(AuthContext)
     const { role } = useGetRole(user, loading)
@@ -46,7 +47,7 @@ const TripPackages = () => {
     }
 
     if (isLoading) {
-        return <h1>Loading ...</h1>
+        return <Loading />
     }
     return (
         <div>

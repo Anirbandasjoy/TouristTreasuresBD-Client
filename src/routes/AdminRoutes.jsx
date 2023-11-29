@@ -3,6 +3,7 @@ import { useContext } from "react"
 import { AuthContext } from "../context/AuthProvider"
 import useGetRole from "../hooks/useGetRole"
 import { Navigate, useLocation } from "react-router-dom";
+import Loading from "../components/Loading/Loading";
 
 
 const AdminRoutes = ({ children }) => {
@@ -10,7 +11,7 @@ const AdminRoutes = ({ children }) => {
     const { role, isLoading } = useGetRole(user, loading)
     const location = useLocation()
     if (loading || isLoading) {
-        return <h1>Loading.....</h1>
+        return <Loading />
     }
     if (user && role === "Admin") {
         return children

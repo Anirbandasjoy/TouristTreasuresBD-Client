@@ -1,12 +1,13 @@
 import { useParams } from "react-router-dom"
 import useGetSingleStory from "../../../hooks/useGetSingleStory"
+import Loading from "../../../components/Loading/Loading"
 
 
 const StoryDetails = () => {
     const { id } = useParams()
     const { singleStory, isLoading } = useGetSingleStory(id)
     if (isLoading) {
-        return <h1>Loading...</h1>
+        return <Loading />
     }
     return (
 

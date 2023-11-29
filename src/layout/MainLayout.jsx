@@ -3,6 +3,7 @@ import Navbar from "../components/navbar/Navbar"
 import TopNavbar from "../components/navbar/TopNavbar"
 import Footer from "../components/footer/Footer"
 import { motion, useScroll } from "framer-motion"
+import Loading from "../components/Loading/Loading"
 
 const MainLayout = () => {
     const navigation = useNavigation();
@@ -14,7 +15,7 @@ const MainLayout = () => {
             <Navbar />
             <div className="px-2 lg:px-0">
                 {
-                    navigation.state === "loading" ? "Loading..." :
+                    navigation.state === "loading" ? <Loading /> :
                         <Outlet />
                 }
             </div>

@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthProvider";
 import useGetRole from "../../../hooks/useGetRole";
+import Loading from "../../../components/Loading/Loading";
 const TourTypePackage = () => {
     const { user, loading } = useContext(AuthContext)
     const { axiosSecure } = useAxios()
@@ -40,10 +41,10 @@ const TourTypePackage = () => {
         }
     }
     if (isLoading) {
-        return <h1>Loading ...</h1>
+        return <Loading />
     }
     if (!packages || packages.length === 0) {
-        return <h1 className="h-[calc(100vh-200px)] flex justify-center items-center text-3xl">Not Avilable Package </h1>
+        return <h1 className="h-[calc(100vh-120px)] flex justify-center items-center text-3xl">Not Avilable Package </h1>
     }
     return (
         <div className="max-w-5xl mx-auto my-10">

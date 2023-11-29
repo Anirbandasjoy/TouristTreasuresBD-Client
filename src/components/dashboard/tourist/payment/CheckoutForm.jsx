@@ -66,7 +66,7 @@ const CheckoutForm = ({ state }) => {
             if (paymentIntent.status === "succeeded") {
                 console.log('transection id ', paymentIntent.id)
                 toast.success("Payment Successfull", paymentIntent.id)
-                axiosSecure.patch(`/update-paymentStatus/${state?._id}?paymentStatus="paid"`)
+                axiosSecure.patch(`/update-paymentStatus/${state?._id}?paymentStatus=paid`)
                     .then(({ data }) => {
                         console.log(data)
                         navigate("/dashboard/my-bookings")
