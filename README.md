@@ -1,7 +1,7 @@
 # TouristTreasuresBD
 
 ## [ Live link](https://assignment12-848ad.web.app)
-## [ Server site github Link](https://github.com/Anirbandasjoy/TouristTreasuresBD-Server)
+## [ Server Site repository Link](https://github.com/Anirbandasjoy/TouristTreasuresBD-Server)
 
 
 
